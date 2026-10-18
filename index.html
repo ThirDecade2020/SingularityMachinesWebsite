@@ -6,28 +6,198 @@
   <meta name="description" content="Singularity Machines — software development, AI automation, and sovereign computing.">
   <title>Singularity Machines</title>
   <style>
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      min-height: 100vh;
       background: #080a0b;
       color: #e4e7e8;
       font-family: system-ui, sans-serif;
-      display: grid;
-      place-items: center;
-      text-align: center;
     }
-    main { padding: 32px; max-width: 800px; }
-    h1 { font-size: clamp(2.5rem, 7vw, 5rem); margin-bottom: 12px; }
+    header { padding: 24px; text-align: center; }
+    nav a { color: #45c879; margin: 0 12px; text-decoration: none; }
+    section { padding: 80px 24px; max-width: 1000px; margin: auto; }
+    #home { min-height: 60vh; display: grid; align-content: center; text-align: center; }
+    h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
     h1 span { color: #45c879; }
+    h2 { color: #b99bff; }
     .tagline { color: #b99bff; font-size: 1.2rem; }
     p { line-height: 1.7; }
+    #services ul {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      padding: 0;
+      list-style: none;
+    }
+    #services li {
+      padding: 24px;
+      background: #111517;
+      border: 1px solid #303638;
+      border-left: 3px solid #45c879;
+      border-radius: 8px;
+      color: #dce1e3;
+      font-size: 1.1rem;
+    }
+    #services li:nth-child(even) {
+      border-left-color: #b99bff;
+    }
+    @media (max-width: 600px) {
+      #services ul { grid-template-columns: 1fr; }
+      nav a { display: inline-block; margin: 8px; }
+    }
+    #projects ul {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 20px;
+      padding: 0;
+      list-style: none;
+    }
+    #projects li {
+      padding: 28px;
+      background: #111517;
+      border: 1px solid #303638;
+      border-top: 3px solid #b99bff;
+      border-radius: 8px;
+    }
+    #projects li:nth-child(even) {
+      border-top-color: #45c879;
+    }
+    #projects h3 {
+      margin-top: 0;
+      color: #e4e7e8;
+    }
+    #projects p {
+      color: #aeb8bc;
+      margin-bottom: 0;
+    }
+    @media (max-width: 600px) {
+      #projects ul { grid-template-columns: 1fr; }
+    }
+    #about h3 {
+      color: #45c879;
+      font-size: 1.5rem;
+    }
+    #about p, #contact p {
+      max-width: 760px;
+      color: #b8c1c5;
+      font-size: 1.1rem;
+    }
+    #contact {
+      text-align: center;
+    }
+    #contact p {
+      margin-left: auto;
+      margin-right: auto;
+    }
+    #contact a {
+      display: inline-block;
+      padding: 16px 28px;
+      color: #45c879;
+      border: 1px solid #45c879;
+      border-radius: 8px;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+    #contact a:hover {
+      background: #45c879;
+      color: #080a0b;
+    }
+    .hero-art {
+      display: block;
+      width: min(100%, 560px);
+      height: auto;
+      margin: 0 auto 24px;
+      border-radius: 16px;
+    }
+    footer { padding: 32px; text-align: center; color: #888; }
   </style>
 </head>
 <body>
+  <header>
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#services">Services</a>
+      <a href="#projects">Projects</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
   <main>
-    <h1>Singularity <span>Machines</span></h1>
-    <p class="tagline">Maximum Control, Minimum Abstraction.</p>
-    <p>Fast App Creation · Software Development · AI Agentic Automation · Sovereign Compute Systems · Local & Cloud-based Development</p>
+    <section id="home">
+      <img
+        class="hero-art"
+        src="assets/images/brand-profile.png"
+        alt="Singularity Machines futuristic green and purple chrome artwork"
+      >
+      <h1>Singularity <span>Machines</span></h1>
+      <p class="tagline">Maximum Control, Minimum Abstraction.</p>
+    </section>
+
+    <section id="services">
+      <h2>Services</h2>
+      <ul>
+        <li>Fast App Creation</li>
+        <li>Rapid Software Services in Any Tech Stack</li>
+        <li>AI Agentic Automation</li>
+        <li>Sovereign Compute Systems</li>
+        <li>Local &amp; Cloud-based Development</li>
+      </ul>
+    </section>
+
+    <section id="projects">
+      <h2>Projects</h2>
+      <ul>
+        <li>
+          <h3>Singularity Language</h3>
+          <p>A programming language exploring proof-gated execution and mathematical foundations.</p>
+        </li>
+        <li>
+          <h3>Singularity Canvas</h3>
+          <p>A local probabilistic computing interface for exploring constrained states and sampling.</p>
+        </li>
+        <li>
+          <h3>Attention Agent</h3>
+          <p>AI-powered marketing automation, including image understanding and platform-specific content generation.</p>
+        </li>
+        <li>
+          <h3>Singularity Avatar</h3>
+          <p>A locally operated interactive avatar with synthesized speech and audio-driven visualization.</p>
+        </li>
+      </ul>
+    </section>
+
+    <section id="about">
+      <h2>About Singularity Machines</h2>
+      <h3>Maximum Control, Minimum Abstraction.</h3>
+      <p>
+        Singularity Machines is a software engineering and computing
+        company focused on building systems from first principles.
+        We develop applications, intelligent automation, programming
+        languages, and sovereign computing technologies.
+      </p>
+      <p>
+        Our philosophy emphasizes understanding and controlling the
+        underlying technology rather than depending unnecessarily
+        on layers of abstraction.
+      </p>
+      <p>
+        From rapid application development to foundational computing
+        research, we work across the technology stack.
+      </p>
+    </section>
+
+    <section id="contact">
+      <h2>Contact</h2>
+      <p>Have a technical challenge? Let's build something.</p>
+      <p>
+        <a href="mailto:attentionagentauto@gmail.com">
+          attentionagentauto@gmail.com
+        </a>
+      </p>
+    </section>
   </main>
+
+  <footer>© 2026 Singularity Machines</footer>
 </body>
 </html>
