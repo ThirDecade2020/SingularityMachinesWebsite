@@ -13,8 +13,46 @@
       color: #e4e7e8;
       font-family: system-ui, sans-serif;
     }
-    header { padding: 24px; text-align: center; }
-    nav a { color: #45c879; margin: 0 12px; text-decoration: none; }
+    header {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+      display: flex;
+      justify-content: center;
+      padding: 16px 24px;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(15, 19, 22, 0.82);
+      border: 1px solid rgba(185, 155, 255, 0.35);
+      border-radius: 999px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.4),
+        0 0 24px rgba(185, 155, 255, 0.10),
+        0 0 40px rgba(69, 200, 121, 0.06);
+    }
+    nav a {
+      color: #e4e7e8;
+      margin: 0;
+      padding: 10px 16px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+    }
+    nav a:hover,
+    nav a:focus-visible {
+      color: #45c879;
+      background: rgba(69, 200, 121, 0.12);
+      box-shadow: 0 0 18px rgba(69, 200, 121, 0.15);
+    }
     section { padding: 80px 24px; max-width: 1000px; margin: auto; }
     #home { min-height: 60vh; display: grid; align-content: center; text-align: center; }
     h1 { font-size: clamp(2.5rem, 7vw, 5rem); }
@@ -43,7 +81,9 @@
     }
     @media (max-width: 600px) {
       #services ul { grid-template-columns: 1fr; }
-      nav a { display: inline-block; margin: 8px; }
+      header { top: 0; padding: 10px 8px; }
+      nav { gap: 2px; padding: 6px; border-radius: 20px; }
+      nav a { padding: 8px 10px; font-size: 0.8rem; }
     }
     #projects ul {
       display: grid;
@@ -108,6 +148,169 @@
       height: auto;
       margin: 0 auto 24px;
       border-radius: 16px;
+    }
+
+    /* Singularity Machines illuminated cards */
+    #services li,
+    #projects li {
+      position: relative;
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    #services li:nth-child(odd),
+    #projects li:nth-child(odd) {
+      border-color: rgba(69, 200, 121, 0.3);
+    }
+
+    #services li:nth-child(even),
+    #projects li:nth-child(even) {
+      border-color: rgba(185, 155, 255, 0.3);
+    }
+
+    #services li:hover,
+    #projects li:hover {
+      transform: translateY(-5px);
+      border-color: #45c879;
+      box-shadow: 0 0 28px rgba(69, 200, 121, 0.18);
+    }
+
+    #services li:nth-child(even):hover,
+    #projects li:nth-child(even):hover {
+      border-color: #b99bff;
+      box-shadow: 0 0 28px rgba(185, 155, 255, 0.18);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      #services li,
+      #projects li {
+        transition: none;
+      }
+      #services li:hover,
+      #projects li:hover {
+        transform: none;
+      }
+    }
+
+    /* Singularity Machines ambient background */
+    body {
+      background:
+        radial-gradient(
+          ellipse at 15% 25%,
+          rgba(69, 200, 121, 0.24),
+          transparent 45%
+        ),
+        radial-gradient(
+          ellipse at 85% 65%,
+          rgba(185, 155, 255, 0.26),
+          transparent 45%
+        ),
+        #080a0b;
+      background-size: 130% 130%;
+      animation: singularityAmbient 22s ease-in-out infinite alternate;
+    }
+
+    @keyframes singularityAmbient {
+      from { background-position: 0% 0%; }
+      to { background-position: 100% 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      body { animation: none; }
+    }
+
+    /* Singularity Machines scroll reveal */
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Singularity Machines energy dividers */
+    main > section:not(:first-child)::before {
+      content: "";
+      display: block;
+      width: min(75%, 650px);
+      height: 2px;
+      margin: -40px auto 80px;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        #45c879 30%,
+        #b99bff 70%,
+        transparent
+      );
+      background-size: 200% 100%;
+      box-shadow:
+        0 0 12px rgba(69, 200, 121, 0.45),
+        0 0 20px rgba(185, 155, 255, 0.3);
+      animation: energyFlow 6s ease-in-out infinite alternate;
+    }
+
+    @keyframes energyFlow {
+      from { background-position: 0% 50%; opacity: 0.55; }
+      to { background-position: 100% 50%; opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      main > section:not(:first-child)::before {
+        animation: none;
+      }
+    }
+
+    /* Active navigation indicator */
+    nav a.active {
+      color: #45c879;
+      background: rgba(69, 200, 121, 0.14);
+      box-shadow:
+        inset 0 0 0 1px rgba(69, 200, 121, 0.35),
+        0 0 16px rgba(185, 155, 255, 0.18);
+    }
+
+    main > section {
+      scroll-margin-top: 110px;
+    }
+
+    /* Singularity Machines interactive spotlight */
+    body::after {
+      content: "";
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 460px;
+      height: 460px;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 5;
+      opacity: 0;
+      transform: translate3d(
+        calc(var(--cursor-x, -500px) - 50%),
+        calc(var(--cursor-y, -500px) - 50%),
+        0
+      );
+      background: radial-gradient(
+        circle,
+        rgba(69, 200, 121, 0.13) 0%,
+        rgba(185, 155, 255, 0.08) 35%,
+        transparent 70%
+      );
+      transition: opacity 0.35s ease;
+    }
+
+    @media (hover: hover) and (pointer: fine)
+           and (prefers-reduced-motion: no-preference) {
+      body.spotlight-active::after {
+        opacity: 1;
+      }
     }
     footer { padding: 32px; text-align: center; color: #888; }
   </style>
@@ -199,5 +402,100 @@
   </main>
 
   <footer>© 2026 Singularity Machines</footer>
+
+  <script>
+    if ('IntersectionObserver' in window &&
+        !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const sections = document.querySelectorAll(
+        '#services, #projects, #about, #contact'
+      );
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.08 });
+
+      sections.forEach((section) => {
+        section.classList.add('reveal');
+        observer.observe(section);
+      });
+    }
+  </script>
+
+
+  <script>
+    /* Highlight the section currently in view */
+    (() => {
+      const links = [...document.querySelectorAll('nav a[href^="#"]')];
+      const sections = links
+        .map(link => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+      if (!sections.length) return;
+
+      function updateActiveNavigation() {
+        const position = window.scrollY + window.innerHeight * 0.35;
+        let active = sections[0];
+
+        for (const section of sections) {
+          if (section.offsetTop <= position) active = section;
+        }
+
+        if (window.innerHeight + window.scrollY >=
+            document.documentElement.scrollHeight - 4) {
+          active = sections[sections.length - 1];
+        }
+
+        links.forEach(link => {
+          const selected = link.getAttribute('href') === '#' + active.id;
+          link.classList.toggle('active', selected);
+
+          if (selected) {
+            link.setAttribute('aria-current', 'location');
+          } else {
+            link.removeAttribute('aria-current');
+          }
+        });
+      }
+
+      window.addEventListener('scroll', updateActiveNavigation, {
+        passive: true
+      });
+      window.addEventListener('resize', updateActiveNavigation);
+      updateActiveNavigation();
+    })();
+  </script>
+
+
+  <script>
+    /* Mouse-following ambient illumination */
+    (() => {
+      const supported = window.matchMedia(
+        '(hover: hover) and (pointer: fine) and ' +
+        '(prefers-reduced-motion: no-preference)'
+      );
+
+      if (!supported.matches) return;
+
+      document.addEventListener('pointermove', (event) => {
+        document.body.style.setProperty(
+          '--cursor-x', event.clientX + 'px'
+        );
+        document.body.style.setProperty(
+          '--cursor-y', event.clientY + 'px'
+        );
+        document.body.classList.add('spotlight-active');
+      }, { passive: true });
+
+      document.addEventListener('pointerleave', () => {
+        document.body.classList.remove('spotlight-active');
+      });
+    })();
+  </script>
+
 </body>
 </html>
