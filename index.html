@@ -3351,14 +3351,14 @@ function makeShip(color){
   ship.scale.setScalar(.78);
   return ship;
 }
-const safe=makeShip(0x52ffd0);safe.position.z=2;scene.add(safe);const victim=makeShip(0xff568f);victim.position.z=2.2;scene.add(victim);
+const safe=makeShip(0x52ffd0);safe.scale.setScalar(.8);safe.position.z=2;scene.add(safe);const victim=makeShip(0xff568f);victim.scale.setScalar(.8);victim.position.z=2.2;scene.add(victim);
 const filamentCount=160;const filamentPositions=new Float32Array(filamentCount*3);const filamentGeo=new THREE.BufferGeometry();filamentGeo.setAttribute('position',new THREE.BufferAttribute(filamentPositions,3));const filament=new THREE.Line(filamentGeo,new THREE.LineBasicMaterial({color:0xff6fb7,transparent:true,opacity:.85,blending:THREE.AdditiveBlending}));filament.frustumCulled=false;scene.add(filament);
 const shreds=[];for(let i=0;i<65;i++){const obj=new THREE.Mesh(new THREE.TetrahedronGeometry(.045+Math.random()*.055),new THREE.MeshBasicMaterial({color:i%2?0xff75ac:0xb080ff,transparent:true,opacity:.8}));scene.add(obj);shreds.push(obj)}
-let t=0,paused=false,last=performance.now();const duration=24;
+let t=0,paused=false,last=performance.now();const duration=42;
 function smooth(x){x=THREE.MathUtils.clamp(x,0,1);return x*x*(3-2*x)}
-function frame(now){requestAnimationFrame(frame);const dt=Math.min((now-last)/1000,.06);last=now;if(!paused)t=(t+dt)%duration;const p=t/duration;safe.position.set(-8+16*p,3.6+Math.sin(p*8)*.08,1.6);safe.rotation.set(.05,0,.06);safe.scale.setScalar(.9);
+function frame(now){requestAnimationFrame(frame);const dt=Math.min((now-last)/1000,.06);last=now;if(!paused)t=(t+dt)%duration;const p=t/duration;safe.position.set(-8+16*p,3.6+Math.sin(p*8)*.08,1.6);safe.rotation.set(.05,0,.06);safe.scale.setScalar(.8);
 // The captured craft spirals inward; tidal stretching grows rapidly at the end.
-const capture=smooth((p-.10)/.76);const angle=-2.7+capture*3.65*Math.PI;const radius=6.5-4.2*Math.pow(capture,.7);const x=Math.cos(angle)*radius,y=Math.sin(angle)*radius*.8;victim.position.set(x,y,2.3);const theta=angle+Math.PI/2;victim.rotation.z=theta;const stretch=smooth((capture-.43)/.48);const factor=1+stretch*17;victim.scale.set(factor*(1-smooth((capture-.94)/.06)),Math.max(.09,1-stretch*.90),Math.max(.1,1-stretch*.86));victim.visible=capture<.993;
+const capture=smooth((p-.10)/.76);const angle=-2.7+capture*3.65*Math.PI;const radius=6.5-4.2*Math.pow(capture,.7);const x=Math.cos(angle)*radius,y=Math.sin(angle)*radius*.8;victim.position.set(x,y,2.3);const theta=angle+Math.PI/2;victim.rotation.z=theta;const stretch=smooth((capture-.43)/.48);const factor=1+stretch*17;victim.scale.set(.8*factor*(1-smooth((capture-.94)/.06)),.8*Math.max(.09,1-stretch*.90),.8*Math.max(.1,1-stretch*.86));victim.visible=capture<.993;
 // Keep the long axis tangent to the infall path; visually forms a stretched ribbon.
 const tangent=new THREE.Vector2(-Math.sin(angle),Math.cos(angle)*.8).normalize();const trailing=new THREE.Vector2(x,y).normalize();const length=stretch*8.5;for(let i=0;i<filamentCount;i++){const u=i/(filamentCount-1);const wobble=Math.sin(u*22+t*9)*.035*stretch;filamentPositions[i*3]=x-tangent.x*u*length+trailing.x*u*u*.65+wobble;filamentPositions[i*3+1]=y-tangent.y*u*length+trailing.y*u*u*.65+wobble;filamentPositions[i*3+2]=2.2-u*.25}filamentGeo.attributes.position.needsUpdate=true;filament.material.opacity=stretch*(1-smooth((capture-.96)/.04))*.9;filament.visible=stretch>.01&&capture<.997;
 for(let i=0;i<shreds.length;i++){const u=(i+1)/shreds.length;const o=shreds[i];o.visible=stretch>.18&&capture<.997&&u<stretch;const a=angle-u*2.5,r=radius+u*2.3;o.position.set(Math.cos(a)*r,Math.sin(a)*r*.8,2.15);o.scale.setScalar(.4+stretch*.7);o.rotation.z=t*3+i}
