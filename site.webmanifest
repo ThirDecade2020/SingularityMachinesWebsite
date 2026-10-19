@@ -1,0 +1,10 @@
+{
+  "name": "Singularity Machines",
+  "short_name": "Singularity Machines",
+  "description": "Software development, AI automation, and sovereign computing.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "browser",
+  "background_color": "#000000",
+  "theme_color": "#45c879"
+}
