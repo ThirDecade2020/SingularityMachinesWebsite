@@ -1,10 +1,27 @@
 # Singularity Machines
 
+<!-- README V2 VISUAL HEADER -->
+<p align="center">
+  <a href="https://singularitymachines.si/">
+    <img src="assets/images/singularity-social-preview.png"
+         alt="Singularity Machines — Maximum Control, Minimum Abstraction"
+         width="100%">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://singularitymachines.si/">Official Website</a> ·
+  <a href="https://singularitymachines.si/#projects">Project Explorer</a> ·
+  <a href="https://github.com/ThirDecade2020?tab=repositories">GitHub Repositories</a>
+</p>
+<!-- END README V2 VISUAL HEADER -->
+
+
 **Maximum Control, Minimum Abstraction.**
 
 The official website of **Singularity Machines**, a technology company specializing in software engineering, AI agentic automation, and sovereign computing systems.
 
-**Live Website:** https://singularitymachineswebsite.pages.dev/
+**Official Website:** https://singularitymachines.si/
 
 ## About Us
 
@@ -33,6 +50,18 @@ The Singularity Machines website is a lightweight, responsive, single-page exper
 3. **Projects** — Software and computing initiatives
 4. **About** — Company philosophy and mission
 5. **Contact** — Business inquiries and communication
+
+## Project Explorer V1
+
+Our live portfolio showcases **12 featured projects** and a
+**searchable directory of 44 public GitHub repositories**.
+
+The directory includes expandable listings, direct repository links,
+and responsive layouts for desktop and mobile.
+
+**[Explore our projects →](https://singularitymachines.si/#projects)**
+
+The repository inventory reflects the October 19, 2026 release.
 
 ## Technology Stack
 
@@ -162,6 +191,25 @@ Our development process follows a local-first approach:
 
 ## Development Milestones
 
+### Project Explorer V1 — October 19, 2026
+
+- 12 featured projects
+- 44 searchable public GitHub repositories
+- Expand/collapse repository directory
+- GitHub contact integration
+- Responsive desktop and mobile presentation
+- Production verified on both domains
+
+**Published commit:** `ecf18fac0061b98e4efe1b88879dfd3397f71c94`
+
+### Social Preview and Performance — October 2026
+
+- Added branded 1200 × 630 social-preview artwork
+- Added Open Graph and Twitter preview metadata
+- Optimized the hero image with WebP
+- Preserved the original branding assets
+- Improved compatibility with Cloudflare email protection
+
 ### Visual Milestone V1 — October 18, 2026
 
 Completed features include:
@@ -183,23 +231,17 @@ Local milestone backups preserve previous development states.
 
 ## Deployment
 
-The website is hosted on **Cloudflare Pages** and published through the GitHub repository.
+The website is hosted on **Cloudflare Pages** and published
+through GitHub.
 
-**Live Website:**
+**Official Live Website:** https://singularitymachines.si/
 
-https://singularitymachineswebsite.pages.dev/
+**Cloudflare Pages Domain:** https://singularitymachineswebsite.pages.dev/
 
 **GitHub Repository:**
-
 https://github.com/ThirDecade2020/SingularityMachinesWebsite
 
-### Custom Domain
-
-The intended primary domain is:
-
-https://singularitymachines.si/
-
-Custom-domain activation is pending DNS and Cloudflare configuration.
+The custom domain is active and serves the production website.
 
 ## Engineering Philosophy
 
@@ -225,13 +267,12 @@ Planned improvements include:
 - Accessibility refinements
 - Animation performance optimization
 - Expanded project documentation
-- Custom-domain activation
 
 ## Contact
 
 Visit the official website for company information and inquiries:
 
-https://singularitymachineswebsite.pages.dev/
+https://singularitymachines.si/
 
 ---
 
