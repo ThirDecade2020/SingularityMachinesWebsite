@@ -1429,6 +1429,232 @@ section.sm-horizon-active h2 {
 }
 /* SM CONTACT HANDLES V1 CSS END */
 
+
+/* PROJECT EXPLORER V1 CSS START */
+#projects.sm-explorer {
+  max-width: 1320px;
+  margin-inline: auto;
+}
+
+#projects .sm-explorer-intro {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+#projects .sm-explorer-eyebrow,
+#projects .sm-explorer-kicker {
+  color: #45c879;
+  font-size: .72rem;
+  font-weight: 800;
+  letter-spacing: .14em;
+}
+
+#projects .sm-explorer-intro h3 {
+  margin: 14px 0;
+  font-size: clamp(1.45rem, 3vw, 2.2rem);
+}
+
+#projects .sm-explorer-intro p {
+  margin: 0;
+}
+
+#projects .sm-explorer-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 14px;
+  margin: 28px 0 18px;
+}
+
+#projects .sm-explorer-heading h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+}
+
+#projects .sm-explorer-heading span {
+  color: #9ab2a5;
+  font-size: .85rem;
+}
+
+#projects ul.sm-explorer-featured {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  list-style: none;
+  padding: 0;
+}
+
+#projects li.sm-explorer-card {
+  padding: 23px;
+  display: flex;
+  flex-direction: column;
+  min-height: 205px;
+  border-radius: 12px;
+}
+
+#projects .sm-explorer-card h3 {
+  margin: 13px 0 17px;
+  font-size: 1.15rem;
+}
+
+#projects .sm-explorer-card p {
+  margin: 0 0 9px;
+  font-size: .94rem;
+  line-height: 1.5;
+}
+
+#projects .sm-explorer-link,
+#projects .sm-explorer-no-repo {
+  margin-top: auto;
+  padding-top: 15px;
+  font-size: .82rem;
+}
+
+#projects .sm-explorer-link,
+#projects .sm-explorer-all {
+  color: #76e2a3;
+  text-decoration: none;
+}
+
+#projects .sm-explorer-link:hover,
+#projects .sm-explorer-all:hover {
+  text-decoration: underline;
+}
+
+#projects .sm-explorer-no-repo {
+  color: #82928d;
+}
+
+#projects .sm-explorer-directory-heading {
+  margin-top: 48px;
+}
+
+#projects .sm-explorer-directory-intro {
+  margin: 0 0 19px;
+}
+
+#projects .sm-explorer-search-label {
+  display: block;
+  margin-bottom: 9px;
+  color: #cbd9d2;
+  font-size: .88rem;
+}
+
+#projects .sm-explorer-search {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 17px 20px;
+  border: 1px solid #466454;
+  border-radius: 10px;
+  background: #101719;
+  color: #f2f6f3;
+  font: inherit;
+}
+
+#projects .sm-explorer-search:focus-visible {
+  outline: 2px solid #45c879;
+  outline-offset: 3px;
+}
+
+#projects ul.sm-explorer-directory {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  padding: 0;
+  margin-top: 20px;
+  list-style: none;
+}
+
+#projects li.sm-explorer-repo {
+  min-width: 0;
+  padding: 0;
+  border: 1px solid #35433c;
+  border-radius: 8px;
+  background: #101719;
+}
+
+#projects .sm-explorer-repo a {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 13px 14px;
+  color: #cbded3;
+  font-size: .82rem;
+  text-decoration: none;
+  overflow-wrap: anywhere;
+}
+
+#projects .sm-explorer-repo a:hover {
+  color: #76e2a3;
+}
+
+#projects .sm-explorer-repo[hidden] {
+  display: none;
+}
+
+#projects .sm-explorer-all {
+  display: inline-block;
+  margin-top: 18px;
+}
+
+@media (max-width: 900px) {
+  #projects ul.sm-explorer-featured,
+  #projects ul.sm-explorer-directory {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  #projects ul.sm-explorer-featured,
+  #projects ul.sm-explorer-directory {
+    grid-template-columns: 1fr;
+  }
+
+  #projects .sm-explorer-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #projects .sm-explorer-card,
+  #projects .sm-explorer-repo {
+    transition: none;
+  }
+}
+/* PROJECT EXPLORER V1 CSS END */
+
+
+/* SM REPOSITORY EXPAND V1 */
+#projects .sm-explorer-toggle {
+  display: block;
+  margin: 22px auto 6px;
+  padding: 13px 25px;
+  border: 1px solid #45c879;
+  border-radius: 9px;
+  background: #111917;
+  color: #76e2a3;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#projects .sm-explorer-toggle:hover {
+  background: #1b3025;
+}
+
+#projects .sm-explorer-toggle:focus-visible {
+  outline: 2px solid #b99bff;
+  outline-offset: 3px;
+}
+
+#projects .sm-explorer-repo[hidden] {
+  display: none;
+}
+
 </style>
 
 <!-- Singularity Machines SEO Foundation V1 -->
@@ -1497,79 +1723,71 @@ section.sm-horizon-active h2 {
       </ul>
     </section>
 
-    <section id="projects">
-      <h2>Projects</h2>
-      <ul>
-                <li>
-          <h3>Singularity Machines</h3>
-          <p>Research and develop autonomous, AI-controlled personal computing devices designed around privacy, independence, and user ownership. Rebuild personal computing from first principles, replacing unnecessary dependencies with sovereign systems that put intelligence and ultimate control in the hands of their owners.</p>
-        </li>
-<li>
-          <h3>Singularity Language</h3>
-          <p>A programming language that gates execution through mathematical proof. Establishes correctness as a foundation of computation rather than an afterthought.</p>
-        </li>
-        <li>
-          <h3>Singularity Chip</h3>
-          <p>An exploration of computing hardware and processor architecture from first principles. Pushes control closer to the physical foundations of computation.</p>
-        </li>
-        <li>
-          <h3>Singularity OS</h3>
-          <p>An operating-system initiative exploring low-level control of computing environments. Reduces unnecessary abstraction between software and hardware.</p>
-        </li>
-        <li>
-          <h3>Singularity Canvas</h3>
-          <p>A local interface for probabilistic computing, constrained states, and sampling. Makes computational behavior visible, inspectable, and directly controllable.</p>
-        </li>
-        <li>
-          <h3>Singularity DSA</h3>
-          <p>A learning application that builds data structures and algorithms knowledge from fundamental challenges. Makes complex software concepts understandable from their simplest components.</p>
-        </li>
-        <li>
-          <h3>Singularity Avatar</h3>
-          <p>An interactive local avatar combining synthesized speech and audio-driven visualization. Demonstrates responsive AI interfaces built with direct control over their components.</p>
-        </li>
-        <li>
-          <h3>Attention Agent</h3>
-          <p>An AI-powered marketing automation platform for generating content and executing marketing workflows. Applies practical AI automation to reduce repetitive work and operational overhead.</p>
-        </li>
-        <li>
-          <h3>Language Coaches</h3>
-          <p>A software initiative exploring technology-assisted language learning. Applies accessible software and AI capabilities to practical human learning.</p>
-        </li>
-        <li>
-          <h3>1Book9</h3>
-          <p>Transform one familiar book into nine multilingual reading and listening experiences, using AI translation and distinct character voices to support language learning. Make language learning more accessible through reusable knowledge, local-first AI, and minimal unnecessary complexity.</p>
-        </li>
-        <li>
-          <h3>Ooper</h3>
-          <p>An independent ride-service concept focused on fairer pricing for riders and drivers. Uses software to challenge unnecessary intermediaries and increase participant control.</p>
-        </li>
-        <li>
-          <h3>Car Promo</h3>
-          <p>A vehicle-based advertising concept connecting businesses with promotional opportunities. Explores practical, accessible ways to bring technology-driven services into everyday commerce.</p>
-        </li>
-        <li>
-          <h3>Singularity Return Home</h3>
-          <p>A spacecraft return-home prototype exploring orbital simulation and safety-aware trajectories. Demonstrates transparent, deterministic engineering for safety-critical autonomous systems.</p>
-        </li>
-        <li>
-          <h3>Singularity Spacecraft</h3>
-          <p>An offline-first spacecraft computing project exploring autonomous operation and deterministic execution. Prioritizes system independence, predictable behavior, and direct computational control.</p>
-        </li>
-        <li>
-          <h3>Singularity Machines Website</h3>
-          <p>The company&#x27;s public website and evolving software-development showcase. Demonstrates streamlined web engineering with minimal infrastructure complexity.</p>
-        </li>
-          <li>
-            <h3>Singularity Keybindings</h3>
-            <p>An interactive learning application designed to teach Linux keyboard shortcuts through progressive challenges, repetition, and muscle-memory training. From essential terminal commands to advanced desktop and system navigation, Singularity Keybindings helps users internalize keybindings until they become instinctive—building speed, precision, and complete keyboard fluency.</p>
-          </li>
-          <li>
-            <h3>Singularity Docs</h3>
-            <p>An interactive documentation discovery and learning platform that helps users find, understand, and master programming languages, development tools, frameworks, and command-line utilities. Transforming traditional documentation into progressive puzzles, games, and hands-on challenges, Singularity Docs teaches concepts from first principles while reinforcing syntax and commands through repetition and muscle-memory training—turning reference knowledge into practical fluency.</p>
-          </li>
-      </ul>
-    </section>
+    
+<!-- PROJECT EXPLORER V1 START -->
+<section id="projects" class="sm-explorer">
+  <h2>Projects</h2>
+
+  <div class="sm-explorer-intro">
+    <span class="sm-explorer-eyebrow">PROJECT EXPLORER</span>
+    <h3>Projects built from first principles.</h3>
+    <p>Software, AI automation, and sovereign computing.</p>
+  </div>
+
+  <div class="sm-explorer-heading">
+    <h3>Featured Work</h3>
+    <span>12 ongoing projects</span>
+  </div>
+
+  <ul class="sm-explorer-featured">
+    <li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Machines</h3><p>Sovereign personal computing.</p><p>AI-controlled devices built around ownership.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Language</h3><p>Proof-gated programming.</p><p>Correctness before execution.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Canvas</h3><p>Probabilistic computing interface.</p><p>Inspect and control sampled states.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/SingularityCanvas" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity OS</h3><p>Low-level operating systems.</p><p>Build closer to the hardware.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/singularos" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Attention Agent</h3><p>AI-powered marketing automation.</p><p>Reduce repetitive content workflows.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/AttentionAgentServices" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Avatar</h3><p>Interactive voice-driven avatar.</p><p>Connect synthesized speech and visuals.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/Singularity-Avatar-I-Built-a-Talking-AI-Face-in-Hours-" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity DSA</h3><p>Learn algorithms from fundamentals.</p><p>Progress through intuitive challenges.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Keybindings</h3><p>Practice essential Linux shortcuts.</p><p>Build speed through repetition.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Docs</h3><p>Interactive technical documentation.</p><p>Turn reference material into practice.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Spacecraft</h3><p>Offline autonomous spacecraft computing.</p><p>Prioritize deterministic system behavior.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>1Book9</h3><p>One book, nine learning experiences.</p><p>Explore multilingual reading and listening.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/1Book9" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Machines Website</h3><p>Our public development showcase.</p><p>Built with minimal infrastructure complexity.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/SingularityMachinesWebsite" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li>
+  </ul>
+
+  <div class="sm-explorer-heading sm-explorer-directory-heading">
+    <h3>Repository Directory</h3>
+    <span id="sm-repo-count">44 repositories</span>
+  </div>
+
+  <p class="sm-explorer-directory-intro">
+    Explore the complete public GitHub portfolio.
+  </p>
+
+  <label class="sm-explorer-search-label" for="sm-repo-search">
+    Search repositories
+  </label>
+
+  <input
+    id="sm-repo-search"
+    class="sm-explorer-search"
+    type="search"
+    placeholder="Search all repositories..."
+    autocomplete="off"
+  >
+
+  <p id="sm-repo-empty" hidden>No matching repositories.</p>
+
+  <ul id="sm-repo-directory" class="sm-explorer-directory">
+    <li class="sm-explorer-repo" data-name="1book9"><a href="https://github.com/ThirDecade2020/1Book9" target="_blank" rel="noopener noreferrer"><span>1Book9</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="1book9demovideo"><a href="https://github.com/ThirDecade2020/1Book9DemoVideo" target="_blank" rel="noopener noreferrer"><span>1Book9DemoVideo</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="accelerando-8192"><a href="https://github.com/ThirDecade2020/accelerando-8192" target="_blank" rel="noopener noreferrer"><span>accelerando-8192</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="ai-vs.-spaghetti-code-untangling-the-legacy-mess-"><a href="https://github.com/ThirDecade2020/AI-vs.-Spaghetti-Code-Untangling-the-Legacy-Mess-" target="_blank" rel="noopener noreferrer"><span>AI-vs.-Spaghetti-Code-Untangling-the-Legacy-Mess-</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="amazonbraketsdkpython"><a href="https://github.com/ThirDecade2020/AmazonBraketSDKPython" target="_blank" rel="noopener noreferrer"><span>AmazonBraketSDKPython</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="applap"><a href="https://github.com/ThirDecade2020/AppLap" target="_blank" rel="noopener noreferrer"><span>AppLap</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="applappersistenceaxiom"><a href="https://github.com/ThirDecade2020/AppLapPersistenceAxiom" target="_blank" rel="noopener noreferrer"><span>AppLapPersistenceAxiom</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="applapsovereignhardwaresourcingagent"><a href="https://github.com/ThirDecade2020/AppLapSovereignHardwareSourcingAgent" target="_blank" rel="noopener noreferrer"><span>AppLapSovereignHardwareSourcingAgent</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="attentionagentservices"><a href="https://github.com/ThirDecade2020/AttentionAgentServices" target="_blank" rel="noopener noreferrer"><span>AttentionAgentServices</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="bigredbutton"><a href="https://github.com/ThirDecade2020/BigRedButton" target="_blank" rel="noopener noreferrer"><span>BigRedButton</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="clickstack"><a href="https://github.com/ThirDecade2020/ClickStack" target="_blank" rel="noopener noreferrer"><span>ClickStack</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="conceptsyncs"><a href="https://github.com/ThirDecade2020/ConceptSyncs" target="_blank" rel="noopener noreferrer"><span>ConceptSyncs</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="conceptsyncsquizzie"><a href="https://github.com/ThirDecade2020/ConceptSyncsQuizzie" target="_blank" rel="noopener noreferrer"><span>ConceptSyncsQuizzie</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="ffmpeg"><a href="https://github.com/ThirDecade2020/FFmpeg" target="_blank" rel="noopener noreferrer"><span>FFmpeg</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="gitpaid"><a href="https://github.com/ThirDecade2020/GitPaid" target="_blank" rel="noopener noreferrer"><span>GitPaid</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="i-built-an-ai-agent-that-does-the-marketing-while-you-build-the-business-"><a href="https://github.com/ThirDecade2020/I-Built-an-AI-Agent-That-Does-the-Marketing-While-You-Build-the-Business-" target="_blank" rel="noopener noreferrer"><span>I-Built-an-AI-Agent-That-Does-the-Marketing-While-You-Build-the-Business-</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="ink-ai-hack-playground-knife"><a href="https://github.com/ThirDecade2020/ink-ai-hack-playground-knife" target="_blank" rel="noopener noreferrer"><span>ink-ai-hack-playground-knife</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="leetcode-feedback"><a href="https://github.com/ThirDecade2020/LeetCode-Feedback" target="_blank" rel="noopener noreferrer"><span>LeetCode-Feedback</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="leetcodesolutions"><a href="https://github.com/ThirDecade2020/LeetCodeSolutions" target="_blank" rel="noopener noreferrer"><span>LeetCodeSolutions</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="letsgotomars"><a href="https://github.com/ThirDecade2020/LetsGoToMars" target="_blank" rel="noopener noreferrer"><span>LetsGoToMars</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="linkedin-ai-collapser"><a href="https://github.com/ThirDecade2020/LinkedIn-AI-Collapser" target="_blank" rel="noopener noreferrer"><span>LinkedIn-AI-Collapser</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="materialscience-ai-"><a href="https://github.com/ThirDecade2020/materialscience-ai-" target="_blank" rel="noopener noreferrer"><span>materialscience-ai-</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="maththenlower"><a href="https://github.com/ThirDecade2020/maththenlower" target="_blank" rel="noopener noreferrer"><span>maththenlower</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="minutemaster"><a href="https://github.com/ThirDecade2020/MinuteMaster" target="_blank" rel="noopener noreferrer"><span>MinuteMaster</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="nochemicals"><a href="https://github.com/ThirDecade2020/NoChemicals" target="_blank" rel="noopener noreferrer"><span>NoChemicals</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="qubit-quest"><a href="https://github.com/ThirDecade2020/qubit-quest" target="_blank" rel="noopener noreferrer"><span>qubit-quest</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="qubitquestcode"><a href="https://github.com/ThirDecade2020/QubitQuestCode" target="_blank" rel="noopener noreferrer"><span>QubitQuestCode</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="qubitquestcodeallnativepython"><a href="https://github.com/ThirDecade2020/QubitQuestCodeAllNativePython" target="_blank" rel="noopener noreferrer"><span>QubitQuestCodeAllNativePython</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="qubitquestmetal"><a href="https://github.com/ThirDecade2020/QubitQuestMetal" target="_blank" rel="noopener noreferrer"><span>QubitQuestMetal</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="qubitquestquantumadvantage"><a href="https://github.com/ThirDecade2020/QubitQuestQuantumAdvantage" target="_blank" rel="noopener noreferrer"><span>QubitQuestQuantumAdvantage</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="qubitquestquantumadvantageprototype"><a href="https://github.com/ThirDecade2020/QubitQuestQuantumAdvantagePrototype" target="_blank" rel="noopener noreferrer"><span>QubitQuestQuantumAdvantagePrototype</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="querytheory"><a href="https://github.com/ThirDecade2020/QueryTheory" target="_blank" rel="noopener noreferrer"><span>QueryTheory</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="quizme"><a href="https://github.com/ThirDecade2020/QuizMe" target="_blank" rel="noopener noreferrer"><span>QuizMe</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="riskweaver"><a href="https://github.com/ThirDecade2020/RiskWeaver" target="_blank" rel="noopener noreferrer"><span>RiskWeaver</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="safe-class"><a href="https://github.com/ThirDecade2020/safe-class" target="_blank" rel="noopener noreferrer"><span>safe-class</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="singularity-avatar-i-built-a-talking-ai-face-in-hours-"><a href="https://github.com/ThirDecade2020/Singularity-Avatar-I-Built-a-Talking-AI-Face-in-Hours-" target="_blank" rel="noopener noreferrer"><span>Singularity-Avatar-I-Built-a-Talking-AI-Face-in-Hours-</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="singularitycanvas"><a href="https://github.com/ThirDecade2020/SingularityCanvas" target="_blank" rel="noopener noreferrer"><span>SingularityCanvas</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="singularitymachinesanytechstack"><a href="https://github.com/ThirDecade2020/SingularityMachinesAnyTechStack" target="_blank" rel="noopener noreferrer"><span>SingularityMachinesAnyTechStack</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="singularitymachinessocialmediapostsizedcard"><a href="https://github.com/ThirDecade2020/SingularityMachinesSocialMediaPostSizedCard" target="_blank" rel="noopener noreferrer"><span>SingularityMachinesSocialMediaPostSizedCard</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="singularitymachineswebsite"><a href="https://github.com/ThirDecade2020/SingularityMachinesWebsite" target="_blank" rel="noopener noreferrer"><span>SingularityMachinesWebsite</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="singularos"><a href="https://github.com/ThirDecade2020/singularos" target="_blank" rel="noopener noreferrer"><span>singularos</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="x-algorithm"><a href="https://github.com/ThirDecade2020/x-algorithm" target="_blank" rel="noopener noreferrer"><span>x-algorithm</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="yoon_kim_050725"><a href="https://github.com/ThirDecade2020/yoon_kim_050725" target="_blank" rel="noopener noreferrer"><span>yoon_kim_050725</span><span aria-hidden="true">↗</span></a></li><li class="sm-explorer-repo" data-name="zeroclawknife"><a href="https://github.com/ThirDecade2020/ZeroClawKnife" target="_blank" rel="noopener noreferrer"><span>ZeroClawKnife</span><span aria-hidden="true">↗</span></a></li>
+  </ul>
+
+  <button
+    id="sm-repo-toggle"
+    class="sm-explorer-toggle"
+    type="button"
+    aria-expanded="false"
+    aria-controls="sm-repo-directory"
+  >View All 44 Repositories ↓</button>
+
+
+  <a
+    class="sm-explorer-all"
+    href="https://github.com/ThirDecade2020?tab=repositories"
+    target="_blank"
+    rel="noopener noreferrer"
+  >Explore all repositories on GitHub ↗</a>
+</section>
+<!-- PROJECT EXPLORER V1 END -->
+
 
     <section id="about">
       <h2>About Singularity Machines</h2>
@@ -1588,7 +1806,25 @@ section.sm-horizon-active h2 {
 <section id="contact" class="sm-unified-contact" aria-labelledby="sm-contact-title">
 <h2 id="sm-contact-title">Connect With Us</h2>
 <p class="sm-contact-intro">Follow our projects, live development, and AI automation.</p>
-<div class="sm-contact-groups"><div class="sm-contact-group sm"><h3>Singularity Machines</h3><div class="sm-contact-grid"><a class="sm-contact-button" href="https://www.youtube.com/@SingularityMachines" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: YouTube"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 6 3-6 3z" fill="currentColor" stroke="none"/></svg><span class="sm-contact-label">YouTube</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
+<div class="sm-contact-groups"><div class="sm-contact-group sm"><h3>Singularity Machines</h3><div class="sm-contact-grid"><a class="sm-contact-button"
+href="https://github.com/ThirDecade2020?tab=repositories"
+target="_blank" rel="noopener noreferrer"
+aria-label="Singularity Machines: GitHub repositories">
+<svg class="sm-contact-icon" viewBox="0 0 24 24"
+fill="none" stroke="currentColor" stroke-width="1.8"
+stroke-linecap="round" stroke-linejoin="round"
+aria-hidden="true">
+<path d="M9 19c-4 1-4-2-6-2"/>
+<path d="M9 21v-3.5c-4 .8-6-1.5-6-5
+0-1.5.5-2.6 1.5-3.5-.2-.8-.2-2 .5-3
+0 0 1.3 0 3 1.5a11 11 0 0 1 8 0
+C17.7 6 19 6 19 6c.7 1 .7 2.2.5 3
+1 1 1.5 2 1.5 3.5 0 3.5-2 5.8-6 5V21"/>
+</svg>
+<span class="sm-contact-label">GitHub</span>
+<span class="sm-contact-arrow" aria-hidden="true">↗</span>
+</a>
+<a class="sm-contact-button" href="https://www.youtube.com/@SingularityMachines" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: YouTube"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 6 3-6 3z" fill="currentColor" stroke="none"/></svg><span class="sm-contact-label">YouTube</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
 <a class="sm-contact-button" href="https://www.linkedin.com/company/singularity-machines" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: LinkedIn"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7M12 13a3 3 0 0 1 6 0v4"/></svg><span class="sm-contact-label">LinkedIn</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
 <a class="sm-contact-button" href="https://x.com/languagecyborg" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: X / Language Cyborg"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h4l12 18h-4L4 3ZM20 3 4 21"/></svg><span class="sm-contact-label">X / Language Cyborg</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
 <a class="sm-contact-button" href="https://www.sundai.club/projects/d4564424-fc2b-4668-92e6-3b49d3b26084" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: Singularity Machines on Sundai"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16c-1-4 3-10 13-12 2 10-4 14-8 13l-5-1Z"/><path d="M9 15l-3 5M6 12l-3 3"/><circle cx="13" cy="9" r="1"/></svg><span class="sm-contact-label">Singularity Machines on Sundai</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
@@ -2957,6 +3193,66 @@ section.sm-horizon-active h2 {
 })();
 /* SM CONTACT HANDLES V1 JS END */
 </script>
+
+
+<!-- PROJECT EXPLORER V1 SEARCH START -->
+<script>
+(() => {
+  const search = document.getElementById('sm-repo-search');
+  const items = [...document.querySelectorAll('.sm-explorer-repo')];
+  const count = document.getElementById('sm-repo-count');
+  const empty = document.getElementById('sm-repo-empty');
+  const toggle = document.getElementById('sm-repo-toggle');
+
+  if (!search || !count || !empty || !toggle) return;
+
+  let expanded = false;
+  const previewCount = 6;
+
+  function update() {
+    const query = search.value.trim().toLocaleLowerCase();
+    const matches = items.filter(item =>
+      item.dataset.name.includes(query)
+    );
+
+    const showAll = expanded || query.length > 0;
+
+    items.forEach(item => {
+      const index = matches.indexOf(item);
+      item.hidden = index === -1 ||
+        (!showAll && index >= previewCount);
+    });
+
+    count.textContent = query
+      ? `${matches.length} of ${items.length} repositories`
+      : `${items.length} repositories`;
+
+    empty.hidden = matches.length !== 0;
+
+    toggle.hidden = query.length > 0 ||
+      items.length <= previewCount;
+
+    toggle.textContent = expanded
+      ? 'Show Fewer Repositories ↑'
+      : `View All ${items.length} Repositories ↓`;
+
+    toggle.setAttribute(
+      'aria-expanded',
+      String(expanded)
+    );
+  }
+
+  search.addEventListener('input', update);
+
+  toggle.addEventListener('click', () => {
+    expanded = !expanded;
+    update();
+  });
+
+  update();
+})();
+</script>
+<!-- PROJECT EXPLORER V1 SEARCH END -->
 
 </body>
 </html>
