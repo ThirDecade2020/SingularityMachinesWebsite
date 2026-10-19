@@ -1221,6 +1221,191 @@ section.sm-horizon-active h2 {
   }
 }
 
+
+
+
+
+/* UNIFIED CONTACT V1 CSS START */
+#contact.sm-unified-contact {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(40px, 6vw, 80px) 20px;
+  color: #e6e9ed;
+}
+#contact.sm-unified-contact h2 {
+  text-align: center;
+  margin-bottom: 10px;
+}
+#contact .sm-contact-intro {
+  text-align: center;
+  color: #abb6bd;
+  margin-bottom: 30px;
+}
+#contact .sm-contact-groups {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: start;
+}
+#contact .sm-contact-group {
+  --accent: #3eab70;
+  min-width: 0;
+  border: 1px solid var(--accent);
+  border-radius: 16px;
+  padding: clamp(18px, 3vw, 26px);
+  background: rgba(7, 9, 15, .88);
+}
+#contact .sm-contact-group.aa { --accent: #a46be3; }
+#contact .sm-contact-group h3 {
+  color: var(--accent);
+  margin: 0 0 18px;
+  font-size: clamp(1rem, 2vw, 1.2rem);
+}
+#contact .sm-contact-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+#contact .sm-contact-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  padding: 13px 11px;
+  border: 1px solid var(--accent);
+  border-radius: 9px;
+  background: rgba(18, 22, 29, .9);
+  color: #f0f2f5;
+  text-decoration: none;
+  font-size: .86rem;
+  line-height: 1.4;
+  overflow-wrap: anywhere;
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+#contact .sm-contact-button:hover {
+  background: rgba(47, 51, 64, .95);
+  transform: translateY(-2px);
+  box-shadow: 0 0 16px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+#contact .sm-contact-button:focus-visible,
+#contact .sm-copy-email-button:focus-visible {
+  outline: 3px solid #b78cff;
+  outline-offset: 3px;
+}
+#contact .sm-contact-icon {
+  width: 23px;
+  height: 23px;
+  flex: 0 0 23px;
+  color: var(--accent, #74df9e);
+}
+#contact .sm-contact-label {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#contact .sm-contact-arrow {
+  margin-left: auto;
+  color: var(--accent);
+}
+#contact .sm-contact-stream {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid #8250b6;
+  border-radius: 11px;
+  background: rgba(55, 28, 78, .4);
+}
+#contact .sm-stream-heading {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #d5a9ff;
+}
+#contact .sm-stream-heading .sm-contact-icon { color: #d5a9ff; }
+#contact .sm-stream-heading strong { letter-spacing: .04em; }
+#contact .sm-stream-time {
+  color: #f2e8ff;
+  font-weight: 600;
+}
+#contact .sm-contact-stream small {
+  color: #bdb0ca;
+  line-height: 1.6;
+}
+#contact .sm-contact-direct {
+  margin-top: 26px;
+  padding: clamp(20px, 4vw, 34px);
+  border: 1px solid #6b6083;
+  border-radius: 16px;
+  background: rgba(12, 13, 22, .9);
+  text-align: center;
+}
+#contact .sm-contact-direct h3 {
+  color: #e3d7f7;
+  margin-bottom: 15px;
+}
+#contact .sm-contact-direct p {
+  color: #c5c9d0;
+  line-height: 1.7;
+  max-width: 750px;
+  margin: 0 auto 14px;
+}
+#contact .sm-email-panel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  max-width: 100%;
+  margin: 22px auto 0;
+  padding: 15px;
+  border: 1px solid #55c58b;
+  border-radius: 10px;
+  background: rgba(23, 57, 39, .7);
+}
+#contact .sm-email-panel > .sm-contact-icon { color: #74df9e; }
+#contact #sm-email-address {
+  color: #eafff0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+  user-select: text;
+  -webkit-user-select: text;
+}
+#contact .sm-copy-email-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 15px;
+  border: 1px solid #79e8a5;
+  border-radius: 8px;
+  background: #214c34;
+  color: #fff;
+  font: inherit;
+  font-size: .88rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+#contact .sm-copy-email-button:hover { background: #316d49; }
+#contact .sm-copy-email-button .sm-contact-icon {
+  width: 18px;
+  height: 18px;
+  flex-basis: 18px;
+  color: #a4f5c1;
+}
+@media (max-width: 850px) {
+  #contact .sm-contact-groups { grid-template-columns: 1fr; }
+}
+@media (max-width: 430px) {
+  #contact .sm-contact-grid { grid-template-columns: 1fr; }
+  #contact .sm-email-panel { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #contact .sm-contact-button { transition: none; }
+  #contact .sm-contact-button:hover { transform: none; }
+}
+/* UNIFIED CONTACT V1 CSS END */
+
 </style>
 
 <!-- Singularity Machines SEO Foundation V1 -->
@@ -1349,6 +1534,14 @@ section.sm-horizon-active h2 {
           <h3>Singularity Machines Website</h3>
           <p>The company&#x27;s public website and evolving software-development showcase. Demonstrates streamlined web engineering with minimal infrastructure complexity.</p>
         </li>
+          <li>
+            <h3>Singularity Keybindings</h3>
+            <p>An interactive learning application designed to teach Linux keyboard shortcuts through progressive challenges, repetition, and muscle-memory training. From essential terminal commands to advanced desktop and system navigation, Singularity Keybindings helps users internalize keybindings until they become instinctive—building speed, precision, and complete keyboard fluency.</p>
+          </li>
+          <li>
+            <h3>Singularity Docs</h3>
+            <p>An interactive documentation discovery and learning platform that helps users find, understand, and master programming languages, development tools, frameworks, and command-line utilities. Transforming traditional documentation into progressive puzzles, games, and hands-on challenges, Singularity Docs teaches concepts from first principles while reinforcing syntax and commands through repetition and muscle-memory training—turning reference knowledge into practical fluency.</p>
+          </li>
       </ul>
     </section>
 
@@ -1361,16 +1554,26 @@ section.sm-horizon-active h2 {
       <p><strong>Any technical challenge. Any tech stack. From concept to execution.</strong></p>
     </section>
 
-    <section id="contact">
-      <h2>Contact</h2>
-      <p><strong>Got a technical problem nobody wants to touch? We probably want to hear about it.</strong></p>
-      <p>Tell us what you&#39;re trying to accomplish. We&#39;ll start with an email conversation, then offer a <strong>free phone consultation</strong> to explore how we can help.</p>
-      <p>
-        <a href="mailto:attentionagentauto@gmail.com">
-          attentionagentauto@gmail.com
-        </a>
-      </p>
-    </section>
+    
+
+
+
+<!-- UNIFIED CONTACT V1 START -->
+<section id="contact" class="sm-unified-contact" aria-labelledby="sm-contact-title">
+<h2 id="sm-contact-title">Connect With Us</h2>
+<p class="sm-contact-intro">Follow our projects, live development, and AI automation.</p>
+<div class="sm-contact-groups"><div class="sm-contact-group sm"><h3>Singularity Machines</h3><div class="sm-contact-grid"><a class="sm-contact-button" href="https://www.youtube.com/@SingularityMachines" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: YouTube"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="4"/><path d="m10 9 6 3-6 3z" fill="currentColor" stroke="none"/></svg><span class="sm-contact-label">YouTube</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
+<a class="sm-contact-button" href="https://www.linkedin.com/company/singularity-machines" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: LinkedIn"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7M12 13a3 3 0 0 1 6 0v4"/></svg><span class="sm-contact-label">LinkedIn</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
+<a class="sm-contact-button" href="https://x.com/languagecyborg" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: X / Language Cyborg"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h4l12 18h-4L4 3ZM20 3 4 21"/></svg><span class="sm-contact-label">X / Language Cyborg</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
+<a class="sm-contact-button" href="https://www.sundai.club/projects/d4564424-fc2b-4668-92e6-3b49d3b26084" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: Singularity Machines on Sundai"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 16c-1-4 3-10 13-12 2 10-4 14-8 13l-5-1Z"/><path d="M9 15l-3 5M6 12l-3 3"/><circle cx="13" cy="9" r="1"/></svg><span class="sm-contact-label">Singularity Machines on Sundai</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
+<a class="sm-contact-button" href="https://www.twitch.tv/singularitymachines" target="_blank" rel="noopener noreferrer" aria-label="Singularity Machines: Twitch"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h16v12l-5 5h-4l-3 3v-3H5V3ZM11 8v5M16 8v5"/></svg><span class="sm-contact-label">Twitch</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a></div><div class="sm-contact-stream"><div class="sm-stream-heading"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 3h16v12l-5 5h-4l-3 3v-3H5V3ZM11 8v5M16 8v5"/></svg><strong>LIVE EVERY MONDAY</strong></div><span class="sm-stream-time">7:00 PM – 8:30 PM Eastern Time</span><small>Building Singularity Language, exploring low-level computing, and discussing technology live.</small></div></div>
+<div class="sm-contact-group aa"><h3>Attention Agent</h3><div class="sm-contact-grid"><a class="sm-contact-button" href="https://www.linkedin.com/in/attention-agent-auto" target="_blank" rel="noopener noreferrer" aria-label="Attention Agent: LinkedIn"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 10v7M8 7v.1M12 17v-7M12 13a3 3 0 0 1 6 0v4"/></svg><span class="sm-contact-label">LinkedIn</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
+<a class="sm-contact-button" href="https://www.instagram.com/attentionagent/" target="_blank" rel="noopener noreferrer" aria-label="Attention Agent: Instagram"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg><span class="sm-contact-label">Instagram</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
+<a class="sm-contact-button" href="https://x.com/AttentionAgentA" target="_blank" rel="noopener noreferrer" aria-label="Attention Agent: X"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 3h4l12 18h-4L4 3ZM20 3 4 21"/></svg><span class="sm-contact-label">X</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a>
+<a class="sm-contact-button" href="https://www.facebook.com/profile.php?id=61591716244171" target="_blank" rel="noopener noreferrer" aria-label="Attention Agent: Facebook"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 21v-8h3l.5-4H15V7c0-1 1-2 2-2h2V2h-3c-4 0-5 2-5 5v2H8v4h3v8"/></svg><span class="sm-contact-label">Facebook</span><span class="sm-contact-arrow" aria-hidden="true">↗</span></a></div></div></div>
+<div class="sm-contact-direct"><h3>Let’s Build Something</h3><p>Got a technical problem nobody wants to touch? We probably want to hear about it.</p><p>Tell us what you’re trying to accomplish. We’ll start with an email conversation, then offer a free phone consultation to explore how we can help.</p><div class="sm-email-panel"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="m3 7 9 7 9-7"/></svg><span id="sm-email-address">attentionagentauto@gmail.com</span><button id="sm-copy-email" class="sm-copy-email-button" type="button" aria-label="Copy email address"><svg class="sm-contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/></svg><span id="sm-copy-status" role="status" aria-live="polite">Copy Email</span></button></div></div></section>
+<!-- UNIFIED CONTACT V1 END -->
+
   </main>
 
   <footer>© 2026 Singularity Machines</footer>
@@ -2616,6 +2819,37 @@ section.sm-horizon-active h2 {
   resize();
   frame = requestAnimationFrame(animate);
 })();
+</script>
+
+
+
+<script>
+/* UNIFIED CONTACT V1 JS START */
+(() => {
+  const button = document.getElementById('sm-copy-email');
+  const address = document.getElementById('sm-email-address');
+  const status = document.getElementById('sm-copy-status');
+  if (!button || !address || !status) return;
+
+  button.addEventListener('click', async () => {
+    const email = address.textContent.trim();
+    try {
+      if (!navigator.clipboard?.writeText) {
+        throw new Error('Clipboard API unavailable');
+      }
+      await navigator.clipboard.writeText(email);
+      status.textContent = 'Copied!';
+    } catch (_) {
+      const selection = window.getSelection();
+      const range = document.createRange();
+      range.selectNodeContents(address);
+      selection.removeAllRanges();
+      selection.addRange(range);
+      status.textContent = 'Selected — press ⌘C / Ctrl+C';
+    }
+  });
+})();
+/* UNIFIED CONTACT V1 JS END */
 </script>
 
 </body>
