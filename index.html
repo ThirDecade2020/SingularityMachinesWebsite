@@ -3472,9 +3472,13 @@ const smooth = x => {
 };
 
 function pointerToWorld(event) {
+  const bounds = renderer.domElement.getBoundingClientRect();
+  const x = (event.clientX - bounds.left) / Math.max(bounds.width, 1);
+  const y = (event.clientY - bounds.top) / Math.max(bounds.height, 1);
+
   const ndc = new THREE.Vector3(
-    event.clientX / innerWidth * 2 - 1,
-    1 - event.clientY / innerHeight * 2,
+    x * 2 - 1,
+    1 - y * 2,
     0.5
   );
 
@@ -3488,16 +3492,56 @@ function pointerToWorld(event) {
   );
 }
 
-document.addEventListener('pointermove', event => {
-  if (!state.piloting) return;
-  // Avoid taking control while the visitor is using website controls.
-  if (event.target.closest(
-    'a, button, input, textarea, select, nav, [role="button"]'
-  )) return;
+// V8.1 — Desktop mouse and mobile touch steering.
+let activeTouchId = null;
+const interactiveSelector =
+  'a, button, input, textarea, select, nav, [role="button"]';
 
+function steerToward(event) {
+  if (!arcade.classList.contains('active')) return;
   state.pointer.copy(pointerToWorld(event));
   state.steeringUntil = performance.now() + 2500;
+}
+
+document.addEventListener('pointerdown', event => {
+  if (!state.piloting || event.pointerType !== 'touch') return;
+  if (activeTouchId !== null) return;
+  if (!arcadeStage.contains(event.target)) return;
+  if (event.target.closest(interactiveSelector)) return;
+
+  activeTouchId = event.pointerId;
+  steerToward(event);
 }, { passive: true });
+
+document.addEventListener('pointermove', event => {
+  if (!state.piloting) return;
+
+  if (event.pointerType === 'touch') {
+    if (event.pointerId !== activeTouchId) return;
+    steerToward(event);
+    return;
+  }
+
+  if (!arcadeStage.contains(event.target)) return;
+  if (event.target.closest(interactiveSelector)) return;
+  steerToward(event);
+}, { passive: true });
+
+function finishTouch(event) {
+  if (event.pointerId !== activeTouchId) return;
+  activeTouchId = null;
+  state.steeringUntil = 0;
+}
+
+document.addEventListener('pointerup', finishTouch);
+document.addEventListener('pointercancel', finishTouch);
+
+// Prevent page scrolling only during an active piloting drag.
+document.addEventListener('touchmove', event => {
+  if (state.piloting && activeTouchId !== null && event.cancelable) {
+    event.preventDefault();
+  }
+}, { passive: false });
 
 
 // Explicit pilot engagement; ordinary browsing never steers the ship.
@@ -3525,14 +3569,479 @@ document.body.appendChild(pilotButton);
 
 function setPiloting(enabled) {
   state.piloting = enabled;
+  activeTouchId = null;
   state.steeringUntil = 0;
   pilotButton.textContent = enabled ? 'Release Controls' : 'Pilot Ship';
   pilotButton.setAttribute('aria-pressed', String(enabled));
 }
 
-pilotButton.addEventListener('click', () => {
-  setPiloting(!state.piloting);
+// Singularity Arcade V1 — open and close without page navigation.
+const arcade = document.getElementById('sm-arcade');
+const arcadeExit = document.getElementById('sm-arcade-exit');
+
+const originalShipLayer = document.getElementById('sm-spacecraft-layer');
+const arcadeStage = document.getElementById('sm-arcade-stage');
+
+function resizeShipRenderer() {
+  const width = arcade.classList.contains('active')
+    ? arcadeStage.clientWidth : innerWidth;
+  const height = arcade.classList.contains('active')
+    ? arcadeStage.clientHeight : innerHeight;
+
+  camera.aspect = width / Math.max(height, 1);
+  camera.updateProjectionMatrix();
+  renderer.setSize(width, height);
+}
+
+
+// SINGULARITY ARCADE V2 GALAXY
+const arcadeGalaxy = new THREE.Group();
+scene.add(arcadeGalaxy);
+arcadeGalaxy.visible = false;
+
+const starCount = 2200;
+const starPositions = new Float32Array(starCount * 3);
+const starColors = new Float32Array(starCount * 3);
+
+const palette = [
+  new THREE.Color(0x85eaff),
+  new THREE.Color(0xb57aff),
+  new THREE.Color(0x64ffd0),
+  new THREE.Color(0xffffff)
+];
+
+for (let i = 0; i < starCount; i++) {
+  const angle = Math.random() * Math.PI * 2;
+  const radius = 12 + Math.random() * 65;
+
+  starPositions[i * 3] = Math.cos(angle) * radius;
+  starPositions[i * 3 + 1] = Math.sin(angle) * radius;
+  starPositions[i * 3 + 2] = -15 - Math.random() * 35;
+
+  const color = palette[Math.floor(Math.random() * palette.length)];
+  starColors[i * 3] = color.r;
+  starColors[i * 3 + 1] = color.g;
+  starColors[i * 3 + 2] = color.b;
+}
+
+const starGeometry = new THREE.BufferGeometry();
+starGeometry.setAttribute(
+  'position', new THREE.BufferAttribute(starPositions, 3)
+);
+starGeometry.setAttribute(
+  'color', new THREE.BufferAttribute(starColors, 3)
+);
+
+const stars = new THREE.Points(
+  starGeometry,
+  new THREE.PointsMaterial({
+    size: 0.15,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.9,
+    sizeAttenuation: true,
+    depthWrite: false
+  })
+);
+
+arcadeGalaxy.add(stars);
+
+const arcadeGlow = new THREE.PointLight(0x9a62ff, 75, 90);
+arcadeGlow.position.set(0, 0, -8);
+arcadeGalaxy.add(arcadeGlow);
+// END SINGULARITY ARCADE V2 GALAXY
+
+// ARCADE V2 BLACK HOLE
+const arcadeBlackHole = new THREE.Group();
+arcadeBlackHole.position.set(0, 0, -5);
+arcadeGalaxy.add(arcadeBlackHole);
+
+const blackCore = new THREE.Mesh(
+  new THREE.SphereGeometry(2.15, 64, 48),
+  new THREE.MeshBasicMaterial({ color: 0x010108 })
+);
+arcadeBlackHole.add(blackCore);
+
+const diskMaterial = new THREE.ShaderMaterial({
+  transparent: true,
+  depthWrite: false,
+  side: THREE.DoubleSide,
+  uniforms: {
+    uTime: { value: 0 }
+  },
+  vertexShader: `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix *
+        vec4(position, 1.0);
+    }
+  `,
+  fragmentShader: `
+    varying vec2 vUv;
+    uniform float uTime;
+
+    void main() {
+      vec2 p = vUv * 2.0 - 1.0;
+      float r = length(p);
+      float a = atan(p.y, p.x);
+
+      float swirl = sin(a * 9.0 - r * 23.0 + uTime * 1.4);
+      float band = sin(a * 17.0 + r * 36.0 - uTime * 0.8);
+
+      float ring = smoothstep(0.30, 0.43, r) *
+                   (1.0 - smoothstep(0.84, 1.0, r));
+
+      float intensity = ring *
+        (0.65 + 0.22 * swirl + 0.13 * band);
+
+      vec3 purple = vec3(0.53, 0.20, 1.0);
+      vec3 teal = vec3(0.13, 1.0, 0.75);
+
+      vec3 color = mix(purple, teal,
+        0.5 + 0.5 * sin(a * 3.0 + uTime * 0.4));
+
+      gl_FragColor = vec4(color * 1.6, intensity);
+    }
+  `
 });
+
+const accretionDisk = new THREE.Mesh(
+  new THREE.PlaneGeometry(10, 10),
+  diskMaterial
+);
+arcadeBlackHole.add(accretionDisk);
+
+const photonRing = new THREE.Mesh(
+  new THREE.RingGeometry(2.16, 2.32, 128),
+  new THREE.MeshBasicMaterial({
+    color: 0xb18aff,
+    transparent: true,
+    opacity: 0.85,
+    side: THREE.DoubleSide
+  })
+);
+photonRing.position.z = 0.1;
+arcadeBlackHole.add(photonRing);
+
+const blackHoleLight = new THREE.PointLight(
+  0x8855ff, 65, 30
+);
+blackHoleLight.position.set(0, 0, 1);
+arcadeBlackHole.add(blackHoleLight);
+// END ARCADE V2 BLACK HOLE
+
+// ARCADE V2 GRAVITY AND DEBRIS
+const debrisCount = 160;
+const debrisPositions = new Float32Array(debrisCount * 3);
+const debrisColors = new Float32Array(debrisCount * 3);
+const debrisParticles = [];
+
+for (let i = 0; i < debrisCount; i++) {
+  const particle = {
+    angle: Math.random() * Math.PI * 2,
+    radius: 4 + Math.random() * 13,
+    speed: 0.25 + Math.random() * 0.65
+  };
+  debrisParticles.push(particle);
+
+  const color = new THREE.Color(
+    i % 3 === 0 ? 0x52ffd0 : i % 3 === 1 ? 0xb16aff : 0x9beaff
+  );
+  debrisColors[i * 3] = color.r;
+  debrisColors[i * 3 + 1] = color.g;
+  debrisColors[i * 3 + 2] = color.b;
+}
+
+const debrisGeometry = new THREE.BufferGeometry();
+debrisGeometry.setAttribute(
+  'position', new THREE.BufferAttribute(debrisPositions, 3)
+);
+debrisGeometry.setAttribute(
+  'color', new THREE.BufferAttribute(debrisColors, 3)
+);
+
+const debrisCloud = new THREE.Points(
+  debrisGeometry,
+  new THREE.PointsMaterial({
+    size: 0.19,
+    vertexColors: true,
+    transparent: true,
+    opacity: 0.95,
+    depthWrite: false
+  })
+);
+arcadeBlackHole.add(debrisCloud);
+
+function animateArcadeDebris(dt) {
+  for (let i = 0; i < debrisCount; i++) {
+    const p = debrisParticles[i];
+
+    // Inward accretion: radial movement dominates angular rotation.
+    const proximity = THREE.MathUtils.clamp(
+      (12 - p.radius) / 10, 0, 1
+    );
+
+    p.angle += dt * (0.16 + proximity * 0.85);
+
+    p.radius -= dt * (
+      1.1 + p.speed * 0.8 + proximity * proximity * 3.5
+    );
+
+    // Recycle particles only after they cross the event horizon.
+    if (p.radius < 2.15) {
+      p.radius = 12 + Math.random() * 5;
+      p.angle = Math.random() * Math.PI * 2;
+    }
+
+    debrisPositions[i * 3] = Math.cos(p.angle) * p.radius;
+    debrisPositions[i * 3 + 1] = Math.sin(p.angle) * p.radius;
+    debrisPositions[i * 3 + 2] = 0.25;
+  }
+
+  debrisGeometry.attributes.position.needsUpdate = true;
+}
+// END ARCADE V2 GRAVITY AND DEBRIS
+
+
+// ARCADE V2 ASTEROID FIELD
+// ARCADE V3 ROCK GEOMETRY
+const arcadeAsteroids = new THREE.Group();
+arcadeGalaxy.add(arcadeAsteroids);
+
+const asteroidObjects = [];
+const asteroidRockMaterials = [
+  new THREE.MeshStandardMaterial({
+    color: 0x62606a, roughness: 1, flatShading: true
+  }),
+  new THREE.MeshStandardMaterial({
+    color: 0x514b61, roughness: 1, flatShading: true
+  }),
+  new THREE.MeshStandardMaterial({
+    color: 0x69615a, roughness: 1, flatShading: true
+  })
+];
+
+const asteroidVeinMaterials = [
+  new THREE.LineBasicMaterial({
+    color: 0x52ffd0, transparent: true, opacity: 0.85
+  }),
+  new THREE.LineBasicMaterial({
+    color: 0xb16aff, transparent: true, opacity: 0.85
+  })
+];
+
+function makeArcadeAsteroid(index) {
+  const group = new THREE.Group();
+  const geometry = new THREE.IcosahedronGeometry(1, 2);
+  const positions = geometry.attributes.position;
+
+  // Deform shared vertex positions consistently to avoid surface cracks.
+  const deformation = new Map();
+  for (let j = 0; j < positions.count; j++) {
+    const v = new THREE.Vector3().fromBufferAttribute(positions, j);
+    const key = [
+      Math.round(v.x * 10000),
+      Math.round(v.y * 10000),
+      Math.round(v.z * 10000)
+    ].join(",");
+
+    if (!deformation.has(key)) {
+      deformation.set(key, 0.72 + Math.random() * 0.48);
+    }
+
+    v.multiplyScalar(deformation.get(key));
+    positions.setXYZ(j, v.x, v.y, v.z);
+  }
+
+  geometry.computeVertexNormals();
+
+  const rock = new THREE.Mesh(
+    geometry,
+    asteroidRockMaterials[index % asteroidRockMaterials.length]
+  );
+  group.add(rock);
+
+  // Small dark crater impressions.
+  const craterMaterial = new THREE.MeshStandardMaterial({
+    color: 0x181923, roughness: 1,
+    side: THREE.DoubleSide
+  });
+
+  for (let j = 0; j < 5; j++) {
+    const direction = new THREE.Vector3(
+      Math.random() * 2 - 1,
+      Math.random() * 2 - 1,
+      Math.random() * 2 - 1
+    ).normalize();
+
+    const crater = new THREE.Mesh(
+      new THREE.CircleGeometry(0.07 + Math.random() * 0.09, 9),
+      craterMaterial
+    );
+
+    crater.position.copy(direction.clone().multiplyScalar(0.91));
+    crater.quaternion.setFromUnitVectors(
+      new THREE.Vector3(0, 0, 1), direction
+    );
+    group.add(crater);
+  }
+
+  // Thin, irregular luminous mineral seams.
+  for (let j = 0; j < 6; j++) {
+    const direction = new THREE.Vector3(
+      Math.random() * 2 - 1,
+      Math.random() * 2 - 1,
+      Math.random() * 2 - 1
+    ).normalize();
+
+    const tangent = new THREE.Vector3()
+      .crossVectors(direction, new THREE.Vector3(0, 0, 1));
+
+    if (tangent.lengthSq() < 0.01) {
+      tangent.set(1, 0, 0);
+    }
+    tangent.normalize();
+
+    const points = [];
+    for (let k = 0; k < 5; k++) {
+      const offset = (k - 2) * 0.11;
+      const p = direction.clone()
+        .addScaledVector(tangent, offset)
+        .normalize()
+        .multiplyScalar(1.02);
+      points.push(p);
+    }
+
+    const vein = new THREE.Line(
+      new THREE.BufferGeometry().setFromPoints(points),
+      asteroidVeinMaterials[(index + j) % 2]
+    );
+    group.add(vein);
+  }
+
+  return group;
+}
+
+function resetArcadeAsteroid(asteroid, initial = false) {
+  asteroid.radius = initial
+    ? 5.5 + Math.random() * 11
+    : 14 + Math.random() * 3;
+
+  asteroid.angle = Math.random() * Math.PI * 2;
+  asteroid.depth = -2.5 - Math.random() * 4;
+}
+
+for (let i = 0; i < 24; i++) {
+  const mesh = makeArcadeAsteroid(i);
+  const size = 0.32 + Math.random() * 0.65;
+  mesh.scale.setScalar(size);
+
+  const asteroid = {
+    mesh,
+    radius: 0,
+    angle: 0,
+    depth: 0,
+    baseSize: size,
+    speed: 0.38 + Math.random() * 0.12,
+    inwardSpeed: 0.12 + Math.random() * 0.10,
+    spin: 0.12 + Math.random() * 0.22
+  };
+
+  resetArcadeAsteroid(asteroid, true);
+  arcadeAsteroids.add(mesh);
+  asteroidObjects.push(asteroid);
+}
+
+function animateArcadeAsteroids(dt) {
+  for (const asteroid of asteroidObjects) {
+    const proximity = THREE.MathUtils.clamp(
+      (14 - asteroid.radius) / 12, 0, 1
+    );
+
+    // Uniform direction; faster angular movement near the center.
+    asteroid.angle += dt * asteroid.speed *
+      (1 + proximity * 1.5);
+
+    // Gradual inward spiral with increasing radial velocity.
+    asteroid.radius -= dt * asteroid.inwardSpeed *
+      (1 + proximity * 3.5);
+
+    if (asteroid.radius < 1.2) {
+      resetArcadeAsteroid(asteroid);
+    }
+
+    asteroid.mesh.position.set(
+      Math.cos(asteroid.angle) * asteroid.radius,
+      Math.sin(asteroid.angle) * asteroid.radius,
+      asteroid.depth
+    );
+
+    // Tidal deformation begins near the visible event horizon.
+    const tidal = THREE.MathUtils.clamp(
+      (4.5 - asteroid.radius) / 3.3, 0, 1
+    );
+    const stretch = tidal * tidal;
+    const fade = 1 - THREE.MathUtils.smoothstep(
+      asteroid.radius, 1.2, 2.1
+    );
+
+    // Orient the long axis toward the singularity.
+    asteroid.mesh.rotation.z =
+      asteroid.angle + Math.PI / 2;
+
+    asteroid.mesh.scale.set(
+      asteroid.baseSize * (1 - stretch * 0.75),
+      asteroid.baseSize * (1 + stretch * 3.2),
+      asteroid.baseSize * (1 - stretch * 0.7)
+    );
+
+    asteroid.mesh.scale.multiplyScalar(
+      Math.max(0.001, 1 - fade * 0.999)
+    );
+
+    asteroid.mesh.rotation.x += asteroid.spin * dt;
+    asteroid.mesh.rotation.y += asteroid.spin * 0.7 * dt;
+  }
+}
+// END ARCADE V2 ASTEROID FIELD
+
+
+
+
+
+
+
+
+function openArcade() {
+  arcadeGalaxy.visible = true;
+  arcade.classList.add('active');
+  arcade.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('sm-arcade-open');
+  pilotButton.style.display = 'none';
+  arcadeStage.appendChild(renderer.domElement);
+  renderer.domElement.style.pointerEvents = 'none';
+  resizeShipRenderer();
+  resetShip();
+  setPiloting(true);
+  arcadeExit.focus();
+}
+
+function closeArcade() {
+  arcadeGalaxy.visible = false;
+  setPiloting(false);
+  arcade.classList.remove('active');
+  arcade.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('sm-arcade-open');
+  pilotButton.style.display = '';
+  originalShipLayer.appendChild(renderer.domElement);
+  resizeShipRenderer();
+  resetShip();
+  pilotButton.focus();
+}
+
+pilotButton.addEventListener('click', openArcade);
+arcadeExit.addEventListener('click', closeArcade);
 
 document.addEventListener('keydown', event => {
   if (event.key === 'Escape' && state.piloting) {
@@ -3605,35 +4114,84 @@ function animate(now) {
 
     let target;
 
-    if (steering) {
-      target = state.pointer.clone();
-      target.clampLength(0, 7);
+    const arcadeFlight = arcade.classList.contains('active');
+
+    if (arcadeFlight) {
+      const visibleHeight = 2 * Math.tan(
+        THREE.MathUtils.degToRad(camera.fov / 2)
+      ) * (camera.position.z - 2);
+      const visibleWidth = visibleHeight * camera.aspect;
+
+      const limitX = Math.max(1, visibleWidth / 2 - 0.6);
+      const limitY = Math.max(1, visibleHeight / 2 - 0.6);
+
+      if (steering) {
+        target = state.pointer.clone();
+        target.x = THREE.MathUtils.clamp(target.x, -limitX, limitX);
+        target.y = THREE.MathUtils.clamp(target.y, -limitY, limitY);
+      } else {
+        target = state.position.clone();
+      }
+
+      const response = 1 - Math.exp(-8 * dt);
+      const previous = state.position.clone();
+
+      state.position.lerp(target, response);
+
+      // Gravity aligns with the visible black hole at world (0, 0).
+      const holeDistance = Math.max(state.position.length(), 0.1);
+      const gravityRadius = 5.8;
+
+      if (holeDistance < gravityRadius) {
+        const strength = (gravityRadius - holeDistance) / gravityRadius;
+        const pull = 2.8 * strength * strength;
+
+        state.position.addScaledVector(
+          state.position.clone().normalize(),
+          -pull * dt
+        );
+      }
+
+      state.position.x = THREE.MathUtils.clamp(
+        state.position.x, -limitX, limitX
+      );
+      state.position.y = THREE.MathUtils.clamp(
+        state.position.y, -limitY, limitY
+      );
+
+      state.velocity.copy(state.position)
+        .sub(previous)
+        .divideScalar(Math.max(dt, 0.001));
+
     } else {
-      const angle = state.time * 0.22;
-      target = new THREE.Vector2(
-        Math.cos(angle) * orbitRadius,
-        Math.sin(angle) * orbitRadius * 0.68
-      );
+      if (steering) {
+        target = state.pointer.clone();
+        target.clampLength(0, 7);
+      } else {
+        const angle = state.time * 0.22;
+        target = new THREE.Vector2(
+          Math.cos(angle) * orbitRadius,
+          Math.sin(angle) * orbitRadius * 0.68
+        );
+      }
+
+      const displacement = target.sub(state.position);
+      const distance = Math.max(state.position.length(), 0.2);
+      const acceleration = displacement.multiplyScalar(2.2);
+
+      if (distance < 3.4) {
+        const gravity = (3.4 - distance) / 3.4;
+        acceleration.addScaledVector(
+          state.position.clone().normalize(),
+          -gravity * 4.5
+        );
+      }
+
+      state.velocity.addScaledVector(acceleration, dt);
+      state.velocity.multiplyScalar(Math.exp(-3.1 * dt));
+      state.velocity.clampLength(0, 4.5);
+      state.position.addScaledVector(state.velocity, dt);
     }
-
-    const displacement = target.sub(state.position);
-    const distance = Math.max(state.position.length(), 0.2);
-
-    // Smooth steering plus a bounded gravitational pull.
-    const acceleration = displacement.multiplyScalar(2.2);
-
-    if (distance < 3.4) {
-      const gravity = (3.4 - distance) / 3.4;
-      acceleration.addScaledVector(
-        state.position.clone().normalize(),
-        -gravity * 4.5
-      );
-    }
-
-    state.velocity.addScaledVector(acceleration, dt);
-    state.velocity.multiplyScalar(Math.exp(-3.1 * dt));
-    state.velocity.clampLength(0, 4.5);
-    state.position.addScaledVector(state.velocity, dt);
 
     ship.position.set(state.position.x, state.position.y, 2);
     ship.scale.setScalar(shipSize);
@@ -3654,7 +4212,11 @@ function animate(now) {
       ship.rotation.z += delta * Math.min(1, dt * 4);
     }
 
-    if (state.position.length() < horizon.radius * 0.86) {
+    const captureRadius = arcade.classList.contains('active')
+      ? 1.85
+      : horizon.radius * 0.86;
+
+    if (state.position.length() < captureRadius) {
       state.captured = true;
       state.captureTime = 0;
       state.captureAngle = Math.atan2(
@@ -3664,18 +4226,99 @@ function animate(now) {
     }
   }
 
+  if (arcadeGalaxy.visible) {
+    arcadeGalaxy.rotation.z += dt * 0.004;
+    diskMaterial.uniforms.uTime.value = state.time;
+    animateArcadeDebris(dt);
+    animateArcadeAsteroids(dt);
+  }
+
   renderer.render(scene, camera);
 }
 
 ship.scale.setScalar(shipSize);
 requestAnimationFrame(animate);
 
-addEventListener('resize', () => {
-  camera.aspect = innerWidth / innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(innerWidth, innerHeight);
-});
+addEventListener('resize', resizeShipRenderer);
 </script>
+
+
+<!-- SINGULARITY ARCADE V1 -->
+<style>
+#sm-arcade {
+  position: fixed;
+  inset: 0;
+  z-index: 9997;
+  display: none;
+  flex-direction: column;
+  background: radial-gradient(ellipse at center, #15213b, #060914 70%, #020308);
+  color: #baffeb;
+  font-family: system-ui, sans-serif;
+}
+#sm-arcade.active { display: flex; }
+#sm-arcade-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: max(18px, env(safe-area-inset-top)) 20px 12px;
+  border-bottom: 1px solid rgba(82,255,208,.25);
+}
+#sm-arcade-title {
+  font-weight: 700;
+  letter-spacing: 2px;
+  font-size: clamp(14px, 3vw, 22px);
+}
+#sm-arcade-exit {
+  padding: 10px 16px;
+  border: 1px solid #52ffd0;
+  border-radius: 999px;
+  background: #111b2c;
+  color: #baffeb;
+  cursor: pointer;
+}
+#sm-arcade-stage canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+#sm-arcade-stage {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+  touch-action: none;
+}
+#sm-arcade-instructions {
+  position: absolute;
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: 12px;
+  right: 12px;
+  text-align: center;
+  color: #c0b1ef;
+  font-size: 13px;
+  pointer-events: none;
+}
+body.sm-arcade-open {
+  overflow: hidden !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  #sm-arcade { scroll-behavior: auto; }
+}
+</style>
+<div id="sm-arcade" role="dialog" aria-modal="true"
+     aria-label="Singularity Arcade" aria-hidden="true">
+  <div id="sm-arcade-header">
+    <span id="sm-arcade-title">SINGULARITY ARCADE</span>
+    <button id="sm-arcade-exit" type="button">Exit Arcade</button>
+  </div>
+  <div id="sm-arcade-stage">
+    <div id="sm-arcade-instructions">
+      Drag to fly · Explore the singularity
+    </div>
+  </div>
+</div>
+<!-- END SINGULARITY ARCADE V1 -->
 
 <!-- CODE BLISS V4 AUDIO PLAYER -->
 <style>
