@@ -3435,5 +3435,104 @@ const tangent=new THREE.Vector2(-Math.sin(angle),Math.cos(angle)*.8).normalize()
 for(let i=0;i<shreds.length;i++){const u=(i+1)/shreds.length;const o=shreds[i];o.visible=stretch>.18&&capture<.997&&u<stretch;const a=angle-u*2.5,r=radius+u*2.3;o.position.set(Math.cos(a)*r,Math.sin(a)*r*.8,2.15);o.scale.setScalar(.4+stretch*.7);o.rotation.z=t*3+i}
 if(capture<.42)void 'Approaching gravitational capture';else if(capture<.73)void 'Tidal forces increasing · hull stretching';else if(capture<.96)void 'EXTREME SPAGHETTIFICATION · STRUCTURAL FAILURE';else void 'Event horizon · signal lost';renderer.render(scene,camera)}requestAnimationFrame(frame);addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});if(matchMedia('(prefers-reduced-motion: reduce)').matches){paused=true;}
 </script>
+
+<!-- CODE BLISS V4 AUDIO PLAYER -->
+<style>
+  #code-bliss-toggle {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    padding: 11px 16px;
+    border: 1px solid rgba(185,155,255,.6);
+    border-radius: 999px;
+    background: rgba(8,10,11,.88);
+    color: #b99bff;
+    font: 600 13px system-ui, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 0 22px rgba(69,200,121,.15);
+    backdrop-filter: blur(12px);
+  }
+  #code-bliss-toggle:hover,
+  #code-bliss-toggle:focus-visible {
+    color: #45c879;
+    border-color: #45c879;
+  }
+  #code-bliss-toggle:focus-visible {
+    outline: 2px solid #45c879;
+    outline-offset: 3px;
+  }
+</style>
+
+<audio id="code-bliss-audio"
+       src="assets/audio/code-bliss.mp3"
+       preload="auto"
+       loop></audio>
+
+<button id="code-bliss-toggle"
+        type="button"
+        aria-label="Play ambient soundtrack"
+        aria-pressed="false">
+  <span id="code-bliss-icon" aria-hidden="true">♫</span>
+  <span id="code-bliss-label">Enable Music</span>
+</button>
+
+<script>
+(() => {
+  const audio = document.getElementById('code-bliss-audio');
+  const button = document.getElementById('code-bliss-toggle');
+  const icon = document.getElementById('code-bliss-icon');
+  const label = document.getElementById('code-bliss-label');
+
+  audio.volume = 0.28;
+
+  function update() {
+    const playing = !audio.paused;
+    icon.textContent = playing ? '♫' : '♪';
+    label.textContent = playing ? 'Music On' : 'Enable Music';
+    button.setAttribute('aria-pressed', String(playing));
+    button.setAttribute('aria-label',
+      playing ? 'Pause ambient soundtrack' : 'Play ambient soundtrack');
+  }
+
+  async function play() {
+    try {
+      await audio.play();
+    } catch (error) {
+      // Browser requires a user gesture before audible playback.
+    }
+    update();
+  }
+
+  button.addEventListener('click', () => {
+    if (audio.paused) play();
+    else {
+      audio.pause();
+      update();
+    }
+  });
+
+  audio.addEventListener('play', update);
+  audio.addEventListener('pause', update);
+
+  // Attempt immediate playback.
+  play();
+
+  // If Chrome blocks autoplay, start on the first visitor interaction.
+  function startOnInteraction() {
+    if (audio.paused) play();
+    document.removeEventListener('pointerdown', startOnInteraction);
+    document.removeEventListener('keydown', startOnInteraction);
+  }
+
+  document.addEventListener('pointerdown', startOnInteraction);
+  document.addEventListener('keydown', startOnInteraction);
+})();
+</script>
+<!-- END CODE BLISS V4 AUDIO PLAYER -->
+
 </body>
 </html>
