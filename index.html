@@ -4059,6 +4059,38 @@ function resetShip() {
   ship.scale.setScalar(shipSize);
 }
 
+const telemetryToggle = document.getElementById('sm-arcade-telemetry-toggle');
+const telemetryPanel = document.getElementById('sm-arcade-telemetry');
+const telemetrySpeed = document.getElementById('sm-tel-speed');
+const telemetryDistance = document.getElementById('sm-tel-distance');
+const telemetryGravity = document.getElementById('sm-tel-gravity');
+const telemetryRisk = document.getElementById('sm-tel-risk');
+
+telemetryToggle.addEventListener('click', () => {
+  telemetryPanel.hidden = !telemetryPanel.hidden;
+  const enabled = !telemetryPanel.hidden;
+  telemetryToggle.textContent = enabled ? 'Telemetry: ON' : 'Telemetry: OFF';
+  telemetryToggle.setAttribute('aria-pressed', String(enabled));
+});
+
+function updateArcadeTelemetry() {
+  if (!arcade.classList.contains('active') || telemetryPanel.hidden) return;
+
+  const distance = state.position.length();
+  const speed = state.velocity.length();
+  const gravityRadius = 5.8;
+  const strength = Math.max(0, (gravityRadius - distance) / gravityRadius);
+  const pull = 2.8 * strength * strength;
+  const risk = Math.max(0, Math.min(100,
+    ((gravityRadius - distance) / (gravityRadius - 1.85)) * 100
+  ));
+
+  telemetrySpeed.textContent = speed.toFixed(2) + ' units/s';
+  telemetryDistance.textContent = distance.toFixed(2) + ' units';
+  telemetryGravity.textContent = pull.toFixed(2) + ' units/s';
+  telemetryRisk.textContent = (state.captured ? 100 : risk).toFixed(0) + '%';
+}
+
 function animate(now) {
   requestAnimationFrame(animate);
 
@@ -4233,6 +4265,7 @@ function animate(now) {
     animateArcadeAsteroids(dt);
   }
 
+  updateArcadeTelemetry();
   renderer.render(scene, camera);
 }
 
@@ -4277,6 +4310,49 @@ addEventListener('resize', resizeShipRenderer);
   color: #baffeb;
   cursor: pointer;
 }
+
+/* SINGULARITY ARCADE V3 LIVE TELEMETRY */
+#sm-arcade-telemetry-toggle {
+  margin-left: auto;
+  padding: 10px 14px;
+  border: 1px solid rgba(185,155,255,.7);
+  border-radius: 999px;
+  background: #17152d;
+  color: #d7c6ff;
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+}
+#sm-arcade-telemetry {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 2;
+  width: min(230px, calc(100% - 28px));
+  padding: 14px;
+  border: 1px solid rgba(82,255,208,.4);
+  border-radius: 12px;
+  background: rgba(4,9,22,.82);
+  backdrop-filter: blur(8px);
+  color: #baffeb;
+  font-size: 12px;
+  line-height: 1.8;
+  pointer-events: none;
+}
+#sm-arcade-telemetry[hidden] { display: none; }
+#sm-arcade-telemetry strong { color: white; }
+#sm-arcade-telemetry .sm-telemetry-title {
+  color: #c6a8ff;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 6px;
+}
+@media (max-width: 600px) {
+  #sm-arcade-header { gap: 6px; padding-left: 10px; padding-right: 10px; }
+  #sm-arcade-telemetry-toggle { padding: 8px 10px; font-size: 11px; }
+  #sm-arcade-telemetry { top: 8px; left: 8px; padding: 10px; width: 170px; }
+}
+
 #sm-arcade-stage canvas {
   display: block;
   width: 100%;
@@ -4310,9 +4386,17 @@ body.sm-arcade-open {
      aria-label="Singularity Arcade" aria-hidden="true">
   <div id="sm-arcade-header">
     <span id="sm-arcade-title">SINGULARITY ARCADE</span>
+    <button id="sm-arcade-telemetry-toggle" type="button" aria-pressed="true">Telemetry: ON</button>
     <button id="sm-arcade-exit" type="button">Exit Arcade</button>
   </div>
   <div id="sm-arcade-stage">
+    <div id="sm-arcade-telemetry" aria-label="Live flight telemetry">
+      <div class="sm-telemetry-title">SLINGSHOT TELEMETRY · LIVE</div>
+      <div>Velocity: <strong id="sm-tel-speed">0.00</strong></div>
+      <div>Singularity Distance: <strong id="sm-tel-distance">0.00</strong></div>
+      <div>Positional Pull: <strong id="sm-tel-gravity">0%</strong></div>
+      <div>Capture Proximity: <strong id="sm-tel-risk">0%</strong></div>
+    </div>
     <div id="sm-arcade-instructions">
       Drag to fly · Explore the singularity
     </div>
