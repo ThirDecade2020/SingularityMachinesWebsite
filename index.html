@@ -1655,6 +1655,42 @@ section.sm-horizon-active h2 {
   display: none;
 }
 
+
+/* SM WEBSITE QR PANEL START */
+#contact .sm-website-qr-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin: 28px auto 36px;
+  padding: 28px 20px;
+  max-width: 420px;
+  border: 1px solid rgba(116, 223, 158, .45);
+  border-radius: 20px;
+  background: rgba(0, 0, 0, .55);
+  text-align: center;
+}
+#contact .sm-website-qr-panel h3 {
+  margin: 0;
+  color: #74df9e;
+  letter-spacing: .12em;
+}
+#contact .sm-website-qr-panel a {
+  display: block;
+  width: min(100%, 300px);
+}
+#contact .sm-website-qr-panel img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+#contact .sm-website-qr-panel p {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+/* SM WEBSITE QR PANEL END */
+
 </style>
 
 <!-- Singularity Machines SEO Foundation V1 -->
@@ -1904,6 +1940,16 @@ section.sm-horizon-active h2 {
 <section id="contact" class="sm-unified-contact" aria-labelledby="sm-contact-title">
 <h2 id="sm-contact-title">Connect With Us</h2>
 <p class="sm-contact-intro">Follow our projects, live development, and AI automation.</p>
+
+<div class="sm-website-qr-panel">
+  <h3>SCAN TO CROSS THE EVENT HORIZON</h3>
+  <a href="https://singularitymachines.si/" aria-label="Visit Singularity Machines website">
+    <img src="assets/images/sm-website-qr.png"
+         alt="Scan to open the Singularity Machines website"
+         width="656" height="656" loading="lazy">
+  </a>
+  <p>SingularityMachines.si</p>
+</div>
 <div class="sm-contact-groups"><div class="sm-contact-group sm"><h3>Singularity Machines</h3><div class="sm-contact-grid"><a class="sm-contact-button"
 href="https://github.com/ThirDecade2020?tab=repositories"
 target="_blank" rel="noopener noreferrer"
