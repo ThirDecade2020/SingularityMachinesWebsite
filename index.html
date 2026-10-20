@@ -3422,18 +3422,259 @@ function makeShip(color){
   ship.scale.setScalar(.78);
   return ship;
 }
-const safe=makeShip(0x52ffd0);safe.scale.setScalar(.8);safe.position.z=2;scene.add(safe);const victim=makeShip(0xff568f);victim.scale.setScalar(.8);victim.position.z=2.2;scene.add(victim);
-const filamentCount=160;const filamentPositions=new Float32Array(filamentCount*3);const filamentGeo=new THREE.BufferGeometry();filamentGeo.setAttribute('position',new THREE.BufferAttribute(filamentPositions,3));const filament=new THREE.Line(filamentGeo,new THREE.LineBasicMaterial({color:0xff6fb7,transparent:true,opacity:.85,blending:THREE.AdditiveBlending}));filament.frustumCulled=false;scene.add(filament);
-const shreds=[];for(let i=0;i<65;i++){const obj=new THREE.Mesh(new THREE.TetrahedronGeometry(.045+Math.random()*.055),new THREE.MeshBasicMaterial({color:i%2?0xff75ac:0xb080ff,transparent:true,opacity:.8}));scene.add(obj);shreds.push(obj)}
-let t=0,paused=false,last=performance.now();const duration=42;
-function smooth(x){x=THREE.MathUtils.clamp(x,0,1);return x*x*(3-2*x)}
-function frame(now){requestAnimationFrame(frame);const dt=Math.min((now-last)/1000,.06);last=now;if(!paused)t=(t+dt)%duration;const p=t/duration;safe.position.set(-8+16*p,3.6+Math.sin(p*8)*.08,1.6);safe.rotation.set(.05,0,.06);safe.scale.setScalar(.8);
-// The captured craft spirals inward; tidal stretching grows rapidly at the end.
-const capture=smooth((p-.10)/.76);const angle=-2.7+capture*3.65*Math.PI;const radius=6.5-4.2*Math.pow(capture,.7);const x=Math.cos(angle)*radius,y=Math.sin(angle)*radius*.8;victim.position.set(x,y,2.3);const theta=angle+Math.PI/2;victim.rotation.z=theta;const stretch=smooth((capture-.43)/.48);const factor=1+stretch*17;victim.scale.set(.8*factor*(1-smooth((capture-.94)/.06)),.8*Math.max(.09,1-stretch*.90),.8*Math.max(.1,1-stretch*.86));victim.visible=capture<.993;
-// Keep the long axis tangent to the infall path; visually forms a stretched ribbon.
-const tangent=new THREE.Vector2(-Math.sin(angle),Math.cos(angle)*.8).normalize();const trailing=new THREE.Vector2(x,y).normalize();const length=stretch*8.5;for(let i=0;i<filamentCount;i++){const u=i/(filamentCount-1);const wobble=Math.sin(u*22+t*9)*.035*stretch;filamentPositions[i*3]=x-tangent.x*u*length+trailing.x*u*u*.65+wobble;filamentPositions[i*3+1]=y-tangent.y*u*length+trailing.y*u*u*.65+wobble;filamentPositions[i*3+2]=2.2-u*.25}filamentGeo.attributes.position.needsUpdate=true;filament.material.opacity=stretch*(1-smooth((capture-.96)/.04))*.9;filament.visible=stretch>.01&&capture<.997;
-for(let i=0;i<shreds.length;i++){const u=(i+1)/shreds.length;const o=shreds[i];o.visible=stretch>.18&&capture<.997&&u<stretch;const a=angle-u*2.5,r=radius+u*2.3;o.position.set(Math.cos(a)*r,Math.sin(a)*r*.8,2.15);o.scale.setScalar(.4+stretch*.7);o.rotation.z=t*3+i}
-if(capture<.42)void 'Approaching gravitational capture';else if(capture<.73)void 'Tidal forces increasing · hull stretching';else if(capture<.96)void 'EXTREME SPAGHETTIFICATION · STRUCTURAL FAILURE';else void 'Event horizon · signal lost';renderer.render(scene,camera)}requestAnimationFrame(frame);addEventListener('resize',()=>{camera.aspect=innerWidth/innerHeight;camera.updateProjectionMatrix();renderer.setSize(innerWidth,innerHeight)});if(matchMedia('(prefers-reduced-motion: reduce)').matches){paused=true;}
+
+// SINGULARITY SPACECRAFT V8 — SINGLE INTERACTIVE SHIP
+const ship = makeShip(0x52ffd0);
+scene.add(ship);
+
+const horizon = { x: 0, y: 0, radius: 2.35 };
+const orbitRadius = 4.1;
+const shipSize = 0.43;
+
+const state = {
+  time: 0,
+  last: performance.now(),
+  steeringUntil: 0,
+  piloting: false,
+  pointer: new THREE.Vector2(),
+  position: new THREE.Vector2(orbitRadius, 0),
+  velocity: new THREE.Vector2(),
+  captured: false,
+  captureTime: 0,
+  captureAngle: 0
+};
+
+const strandCount = 48;
+const strandPoints = new Float32Array(strandCount * 3);
+const strandGeometry = new THREE.BufferGeometry();
+strandGeometry.setAttribute(
+  'position',
+  new THREE.BufferAttribute(strandPoints, 3)
+);
+
+const strand = new THREE.Line(
+  strandGeometry,
+  new THREE.LineBasicMaterial({
+    color: 0x9c78ff,
+    transparent: true,
+    opacity: 0,
+    blending: THREE.AdditiveBlending,
+    depthWrite: false
+  })
+);
+strand.frustumCulled = false;
+scene.add(strand);
+
+const clamp = THREE.MathUtils.clamp;
+const smooth = x => {
+  x = clamp(x, 0, 1);
+  return x * x * (3 - 2 * x);
+};
+
+function pointerToWorld(event) {
+  const ndc = new THREE.Vector3(
+    event.clientX / innerWidth * 2 - 1,
+    1 - event.clientY / innerHeight * 2,
+    0.5
+  );
+
+  ndc.unproject(camera);
+  const direction = ndc.sub(camera.position).normalize();
+  const distance = (2 - camera.position.z) / direction.z;
+
+  return new THREE.Vector2(
+    camera.position.x + direction.x * distance,
+    camera.position.y + direction.y * distance
+  );
+}
+
+document.addEventListener('pointermove', event => {
+  if (!state.piloting) return;
+  // Avoid taking control while the visitor is using website controls.
+  if (event.target.closest(
+    'a, button, input, textarea, select, nav, [role="button"]'
+  )) return;
+
+  state.pointer.copy(pointerToWorld(event));
+  state.steeringUntil = performance.now() + 2500;
+}, { passive: true });
+
+
+// Explicit pilot engagement; ordinary browsing never steers the ship.
+const pilotButton = document.createElement('button');
+pilotButton.id = 'sm-pilot-toggle';
+pilotButton.type = 'button';
+pilotButton.textContent = 'Pilot Ship';
+pilotButton.setAttribute('aria-pressed', 'false');
+pilotButton.style.cssText = `
+  position:fixed;
+  right:22px;
+  bottom:82px;
+  z-index:9998;
+  padding:11px 17px;
+  border:1px solid #52ffd0;
+  border-radius:999px;
+  background:rgba(8,12,25,.88);
+  color:#b8ffe9;
+  font:600 13px system-ui,sans-serif;
+  cursor:pointer;
+  box-shadow:0 0 18px rgba(82,255,208,.15);
+`;
+
+document.body.appendChild(pilotButton);
+
+function setPiloting(enabled) {
+  state.piloting = enabled;
+  state.steeringUntil = 0;
+  pilotButton.textContent = enabled ? 'Release Controls' : 'Pilot Ship';
+  pilotButton.setAttribute('aria-pressed', String(enabled));
+}
+
+pilotButton.addEventListener('click', () => {
+  setPiloting(!state.piloting);
+});
+
+document.addEventListener('keydown', event => {
+  if (event.key === 'Escape' && state.piloting) {
+    setPiloting(false);
+  }
+});
+
+function resetShip() {
+  state.captured = false;
+  state.captureTime = 0;
+  state.position.set(orbitRadius, 0);
+  state.velocity.set(0, 0);
+  ship.visible = true;
+  strand.visible = false;
+  ship.scale.setScalar(shipSize);
+}
+
+function animate(now) {
+  requestAnimationFrame(animate);
+
+  const dt = Math.min((now - state.last) / 1000, 0.05);
+  state.last = now;
+  state.time += dt;
+
+  if (state.captured) {
+    state.captureTime += dt;
+
+    const progress = smooth(state.captureTime / 1.65);
+    const radius = horizon.radius * (0.96 - progress * 0.91);
+    const angle = state.captureAngle + progress * 1.1;
+
+    const x = Math.cos(angle) * radius;
+    const y = Math.sin(angle) * radius;
+
+    ship.position.set(x, y, 2);
+    ship.rotation.z = angle + Math.PI / 2;
+
+    // Compact radial deformation: maximum 2.1x, not 18x.
+    const stretch = smooth(progress * 1.35);
+    const fade = 1 - smooth((progress - 0.78) / 0.22);
+
+    ship.scale.set(
+      shipSize * (1 + stretch * 1.1) * fade,
+      shipSize * (1 - stretch * 0.65) * fade,
+      shipSize * (1 - stretch * 0.55) * fade
+    );
+
+    ship.visible = progress < 0.99;
+
+    // Short strand pointing inward, entirely within the horizon.
+    const length = Math.min(0.85, radius * 0.65) * stretch;
+
+    for (let i = 0; i < strandCount; i++) {
+      const u = i / (strandCount - 1);
+      const r = Math.max(0, radius - u * length);
+
+      strandPoints[i * 3] = Math.cos(angle) * r;
+      strandPoints[i * 3 + 1] = Math.sin(angle) * r;
+      strandPoints[i * 3 + 2] = 2;
+    }
+
+    strandGeometry.attributes.position.needsUpdate = true;
+    strand.material.opacity = 0.55 * stretch * fade;
+    strand.visible = stretch > 0.05 && fade > 0.01;
+
+    if (state.captureTime >= 1.65) resetShip();
+
+  } else {
+    const steering = state.piloting && now < state.steeringUntil;
+
+    let target;
+
+    if (steering) {
+      target = state.pointer.clone();
+      target.clampLength(0, 7);
+    } else {
+      const angle = state.time * 0.22;
+      target = new THREE.Vector2(
+        Math.cos(angle) * orbitRadius,
+        Math.sin(angle) * orbitRadius * 0.68
+      );
+    }
+
+    const displacement = target.sub(state.position);
+    const distance = Math.max(state.position.length(), 0.2);
+
+    // Smooth steering plus a bounded gravitational pull.
+    const acceleration = displacement.multiplyScalar(2.2);
+
+    if (distance < 3.4) {
+      const gravity = (3.4 - distance) / 3.4;
+      acceleration.addScaledVector(
+        state.position.clone().normalize(),
+        -gravity * 4.5
+      );
+    }
+
+    state.velocity.addScaledVector(acceleration, dt);
+    state.velocity.multiplyScalar(Math.exp(-3.1 * dt));
+    state.velocity.clampLength(0, 4.5);
+    state.position.addScaledVector(state.velocity, dt);
+
+    ship.position.set(state.position.x, state.position.y, 2);
+    ship.scale.setScalar(shipSize);
+    ship.visible = true;
+    strand.visible = false;
+
+    if (state.velocity.lengthSq() > 0.005) {
+      const heading = Math.atan2(
+        state.velocity.y,
+        state.velocity.x
+      );
+
+      const delta = Math.atan2(
+        Math.sin(heading - ship.rotation.z),
+        Math.cos(heading - ship.rotation.z)
+      );
+
+      ship.rotation.z += delta * Math.min(1, dt * 4);
+    }
+
+    if (state.position.length() < horizon.radius * 0.86) {
+      state.captured = true;
+      state.captureTime = 0;
+      state.captureAngle = Math.atan2(
+        state.position.y,
+        state.position.x
+      );
+    }
+  }
+
+  renderer.render(scene, camera);
+}
+
+ship.scale.setScalar(shipSize);
+requestAnimationFrame(animate);
+
+addEventListener('resize', () => {
+  camera.aspect = innerWidth / innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(innerWidth, innerHeight);
+});
 </script>
 
 <!-- CODE BLISS V4 AUDIO PLAYER -->
