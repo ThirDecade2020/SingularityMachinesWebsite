@@ -51,17 +51,51 @@ The Singularity Machines website is a lightweight, responsive, single-page exper
 4. **About** — Company philosophy and mission
 5. **Contact** — Business inquiries and communication
 
-## Project Explorer V1
+## Project Explorer V2 — Project & Agent Directory
 
-Our live portfolio showcases **12 featured projects** and a
-**searchable directory of 44 public GitHub repositories**.
+Our production website connects software products, AI agents,
+engineering issues, source repositories, and demonstrations.
 
-The directory includes expandable listings, direct repository links,
-and responsive layouts for desktop and mobile.
+### Flagship Products
 
-**[Explore our projects →](https://singularitymachines.si/#projects)**
+- **Singularity Machines** — Company website and engineering portfolio.
+- **Singularity DSA** — Dedicated engineering product and issue tracking.
 
-The repository inventory reflects the October 19, 2026 release.
+### Featured Projects
+
+- **Singularity Avatar** — Talking AI avatar and speech interface.
+- **Attention Agent** — AI-assisted marketing and automation.
+- **1 Book 9** — Software project with source code and video demonstration.
+
+Each featured project links to its source repository and YouTube demonstration.
+
+### Searchable Directories
+
+**Project & Agent Directory**
+- 28 searchable project and engineering entries.
+- Direct links to available repositories and engineering issues.
+- Seven **In Development** labels replacing generic GitHub fallback links.
+
+**GitHub Repository Directory**
+- 44 public repository entries.
+- Independent search and expandable listings.
+- Direct links to source repositories.
+
+### Production Verification
+
+**Release:** October 27, 2026
+
+**Commit:** `559f4a5330fe3c277a6d7360863ea5857301b2fd`
+
+- Nine predeployment validation checks passed.
+- Automatic Cloudflare Pages deployment succeeded.
+- Deployment URL and custom production domain verified.
+- Production interface visually reviewed and approved.
+
+**[Explore our projects](https://singularitymachines.si/#projects)**
+
+The original Project Explorer V1 release remains documented below
+under Development Milestones.
 
 ## Technology Stack
 
