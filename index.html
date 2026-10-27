@@ -1694,6 +1694,76 @@ section.sm-horizon-active h2 {
 }
 /* SM WEBSITE QR PANEL END */
 
+
+/* SINGULARITY FLAGSHIP STANDARD */
+#projects .sm-flagship-heading {
+  margin: 34px 0 18px;
+}
+#projects .sm-flagship-heading h3 {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+}
+#projects .sm-flagship-heading p {
+  margin: 0;
+  color: #a9c0b2;
+}
+#projects .sm-flagship-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-bottom: 34px;
+}
+#projects .sm-flagship-card {
+  display: flex;
+  flex-direction: column;
+  padding: 26px;
+  border: 1px solid #456f58;
+  border-radius: 14px;
+  background: #101719;
+  min-width: 0;
+}
+#projects .sm-flagship-kicker {
+  color: #76e2a3;
+  font-size: .73rem;
+  font-weight: 800;
+  letter-spacing: .12em;
+}
+#projects .sm-flagship-card h3 {
+  margin: 16px 0;
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+}
+#projects .sm-flagship-card p {
+  line-height: 1.6;
+  margin: 0 0 22px;
+}
+#projects .sm-flagship-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: auto;
+}
+#projects .sm-flagship-links a {
+  display: inline-block;
+  padding: 10px 12px;
+  border: 1px solid #456f58;
+  border-radius: 8px;
+  color: #76e2a3;
+  text-decoration: none;
+  font-size: .82rem;
+}
+#projects .sm-flagship-links a:hover,
+#projects .sm-flagship-links a:focus-visible {
+  background: #203c2c;
+  text-decoration: underline;
+}
+@media (max-width: 700px) {
+  #projects .sm-flagship-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* END SINGULARITY FLAGSHIP STANDARD */
+
 </style>
 
 <!-- Singularity Machines SEO Foundation V1 -->
@@ -1871,6 +1941,38 @@ section.sm-horizon-active h2 {
     <h3>Projects built from first principles.</h3>
     <p>Software, AI automation, and sovereign computing.</p>
   </div>
+
+  
+  <!-- SINGULARITY FLAGSHIP STANDARD START -->
+  <div class="sm-flagship-heading">
+    <h3>Flagship Products</h3>
+    <p>Production software. Public engineering. Continuous improvement.</p>
+  </div>
+
+  <div class="sm-flagship-grid">
+    <article class="sm-flagship-card">
+      <span class="sm-flagship-kicker">FLAGSHIP 01 · PRODUCTION</span>
+      <h3>Singularity Machines</h3>
+      <p>Our production company platform, software portfolio, and engineering showcase.</p>
+      <div class="sm-flagship-links">
+        <a href="https://singularitymachines.si/" target="_blank" rel="noopener noreferrer">Live Product ↗</a>
+        <a href="https://github.com/ThirDecade2020/SingularityMachinesWebsite" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+        <a href="https://github.com/ThirDecade2020/SingularityMachinesWebsite/issues" target="_blank" rel="noopener noreferrer">Engineering Issues ↗</a>
+      </div>
+    </article>
+
+    <article class="sm-flagship-card">
+      <span class="sm-flagship-kicker">FLAGSHIP 02 · PRODUCTION</span>
+      <h3>Singularity DSA</h3>
+      <p>Our algorithms and engineering toolkit, developed through a publicly tracked engineering workflow.</p>
+      <div class="sm-flagship-links">
+        <a href="https://dsa.singularitymachines.si/" target="_blank" rel="noopener noreferrer">Live Product ↗</a>
+        <a href="https://github.com/ThirDecade2020/SingularityDSA" target="_blank" rel="noopener noreferrer">Repository ↗</a>
+        <a href="https://github.com/ThirDecade2020/SingularityDSA/issues" target="_blank" rel="noopener noreferrer">Engineering Issues ↗</a>
+      </div>
+    </article>
+  </div>
+  <!-- SINGULARITY FLAGSHIP STANDARD END -->
 
   <div class="sm-explorer-heading">
     <h3>Featured Work</h3>
