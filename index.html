@@ -1764,6 +1764,79 @@ section.sm-horizon-active h2 {
 }
 /* END SINGULARITY FLAGSHIP STANDARD */
 
+
+/* SINGULARITY PROJECT DIRECTORY V2 */
+#projects .sm-featured-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 16px;
+}
+#projects .sm-featured-actions a,
+#projects .sm-agent-item a {
+  color: #76e2a3;
+  text-decoration: none;
+  font-size: .84rem;
+}
+#projects .sm-featured-actions a:hover,
+#projects .sm-agent-item a:hover {
+  text-decoration: underline;
+}
+#projects .sm-agent-heading { margin-top: 46px; }
+#projects ul.sm-agent-directory {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  padding: 0;
+  list-style: none;
+}
+#projects .sm-agent-item {
+  padding: 19px;
+  min-width: 0;
+  background: #101719;
+  border: 1px solid #354f40;
+  border-radius: 10px;
+}
+#projects .sm-agent-type {
+  color: #76e2a3;
+  font-size: .7rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+#projects .sm-agent-item h4 {
+  margin: 12px 0;
+  overflow-wrap: anywhere;
+}
+#projects .sm-agent-item p {
+  font-size: .86rem;
+  line-height: 1.5;
+}
+#projects .sm-agent-item[hidden] {
+  display: none;
+}
+@media (max-width: 900px) {
+  #projects ul.sm-agent-directory {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 600px) {
+  #projects ul.sm-agent-directory {
+    grid-template-columns: 1fr;
+  }
+}
+/* END SINGULARITY PROJECT DIRECTORY V2 */
+
+
+/* Project directory development status */
+#projects .sm-agent-status {
+  display: inline-block;
+  color: #a9c0b2;
+  font-size: .82rem;
+  font-weight: 600;
+  margin-top: 8px;
+}
+
 </style>
 
 <!-- Singularity Machines SEO Foundation V1 -->
@@ -1976,12 +2049,251 @@ section.sm-horizon-active h2 {
 
   <div class="sm-explorer-heading">
     <h3>Featured Work</h3>
-    <span>15 featured projects</span>
+    <span>3 featured projects</span>
   </div>
 
   <ul class="sm-explorer-featured">
-    <li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Machines</h3><p>Sovereign personal computing.</p><p>AI-controlled devices built around ownership.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Language</h3><p>Proof-gated programming.</p><p>Correctness before execution.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Canvas</h3><p>Probabilistic computing interface.</p><p>Inspect and control sampled states.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/SingularityCanvas" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity OS</h3><p>Low-level operating systems.</p><p>Build closer to the hardware.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/singularos" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Attention Agent</h3><p>AI-powered marketing automation.</p><p>Reduce repetitive content workflows.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/AttentionAgentServices" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Avatar</h3><p>Interactive voice-driven avatar.</p><p>Connect synthesized speech and visuals.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/Singularity-Avatar-I-Built-a-Talking-AI-Face-in-Hours-" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity DSA</h3><p>Learn algorithms from fundamentals.</p><p>Progress through intuitive challenges.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Keybindings</h3><p>Practice essential Linux shortcuts.</p><p>Build speed through repetition.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Docs</h3><p>Interactive technical documentation.</p><p>Turn reference material into practice.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Spacecraft</h3><p>Offline autonomous spacecraft computing.</p><p>Prioritize deterministic system behavior.</p><span class="sm-explorer-no-repo">In Development</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>1Book9</h3><p>One book, nine learning experiences.</p><p>Explore multilingual reading and listening.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/1Book9" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Audit</h3><p>Website performance engineering.</p><p>Audit, stress test, and monitor public websites.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/SingularityMachinesWebsite/issues/1" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Distribution</h3><p>Software delivery and discoverability.</p><p>Deploy, index, share, and measure software distribution.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/SingularityMachinesWebsite/issues/2" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity DevTools</h3><p>Browser engineering from first principles.</p><p>Learn debugging, browser internals, network inspection, and performance profiling.</p><span class="sm-explorer-no-repo">Planned</span></li><li class="sm-explorer-card"><span class="sm-explorer-kicker">FEATURED PROJECT</span><h3>Singularity Machines Website</h3><p>Our public development showcase.</p><p>Built with minimal infrastructure complexity.</p><a class="sm-explorer-link" href="https://github.com/ThirDecade2020/SingularityMachinesWebsite" target="_blank" rel="noopener noreferrer">View Repository ↗</a></li>
-  </ul>
+
+      <li class="sm-explorer-card">
+        <span class="sm-explorer-kicker">FEATURED PROJECT</span>
+        <h3>Singularity Avatar</h3>
+        <p>Local-first talking AI avatar with voice synthesis and animated expression.</p>
+        <div class="sm-featured-actions">
+          <a href="https://youtu.be/1dhMScRLQrY" target="_blank" rel="noopener noreferrer">Watch Demonstration ↗</a>
+          <a href="https://github.com/ThirDecade2020/Singularity-Avatar-I-Built-a-Talking-AI-Face-in-Hours-" target="_blank" rel="noopener noreferrer">Source Repository ↗</a>
+        </div>
+      </li>
+
+      <li class="sm-explorer-card">
+        <span class="sm-explorer-kicker">FEATURED PROJECT</span>
+        <h3>Attention Agent</h3>
+        <p>AI-powered marketing automation for businesses.</p>
+        <div class="sm-featured-actions">
+          <a href="https://youtu.be/69JuBtY1GOU" target="_blank" rel="noopener noreferrer">Watch Demonstration ↗</a>
+          <a href="https://github.com/ThirDecade2020/AttentionAgentServices" target="_blank" rel="noopener noreferrer">Source Repository ↗</a>
+        </div>
+      </li>
+
+      <li class="sm-explorer-card">
+        <span class="sm-explorer-kicker">FEATURED PROJECT</span>
+        <h3>1 Book 9</h3>
+        <p>Software project with a public demonstration and source repository.</p>
+        <div class="sm-featured-actions">
+          <a href="https://youtu.be/VO8WTiEOiyE" target="_blank" rel="noopener noreferrer">Watch Demonstration ↗</a>
+          <a href="https://github.com/ThirDecade2020/1Book9" target="_blank" rel="noopener noreferrer">Source Repository ↗</a>
+        </div>
+      </li>
+</ul>
+
+<div class="sm-explorer-heading sm-agent-heading">
+  <h3>Project &amp; Agent Directory</h3>
+  <span id="sm-agent-count"></span>
+</div>
+<p>Explore our additional projects and publicly tracked engineering work. Listings may represent production software, active development, or planned capabilities.</p>
+<label class="sm-explorer-search-label" for="sm-agent-search">Search projects and agents</label>
+<input id="sm-agent-search" class="sm-explorer-search"
+       type="search" placeholder="Search projects, agents, engineering issues..."
+       autocomplete="off">
+<p id="sm-agent-empty" hidden>No matching projects or agents.</p>
+<ul id="sm-agent-directory" class="sm-agent-directory">
+
+
+  <li class="sm-agent-item" data-search="singularity machines sovereign personal computing. ai-controlled devices built around ownership.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Machines</h4>
+    <p>Sovereign personal computing. AI-controlled devices built around ownership.</p>
+    <span class="sm-agent-status">In Development</span>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity language proof-gated programming. correctness before execution.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Language</h4>
+    <p>Proof-gated programming. Correctness before execution.</p>
+    <span class="sm-agent-status">In Development</span>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity canvas probabilistic computing interface. inspect and control sampled states.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Canvas</h4>
+    <p>Probabilistic computing interface. Inspect and control sampled states.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityCanvas" target="_blank" rel="noopener noreferrer">View Engineering Source ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity os low-level operating systems. build closer to the hardware.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity OS</h4>
+    <p>Low-level operating systems. Build closer to the hardware.</p>
+    <a href="https://github.com/ThirDecade2020/singularos" target="_blank" rel="noopener noreferrer">View Engineering Source ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity dsa learn algorithms from fundamentals. progress through intuitive challenges.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity DSA</h4>
+    <p>Learn algorithms from fundamentals. Progress through intuitive challenges.</p>
+    <span class="sm-agent-status">In Development</span>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity keybindings practice essential linux shortcuts. build speed through repetition.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Keybindings</h4>
+    <p>Practice essential Linux shortcuts. Build speed through repetition.</p>
+    <span class="sm-agent-status">In Development</span>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity docs interactive technical documentation. turn reference material into practice.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Docs</h4>
+    <p>Interactive technical documentation. Turn reference material into practice.</p>
+    <span class="sm-agent-status">In Development</span>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity spacecraft offline autonomous spacecraft computing. prioritize deterministic system behavior.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Spacecraft</h4>
+    <p>Offline autonomous spacecraft computing. Prioritize deterministic system behavior.</p>
+    <span class="sm-agent-status">In Development</span>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity audit website performance engineering. audit, stress test, and monitor public websites.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Audit</h4>
+    <p>Website performance engineering. Audit, stress test, and monitor public websites.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityMachinesWebsite/issues/1" target="_blank" rel="noopener noreferrer">View Engineering Source ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity distribution software delivery and discoverability. deploy, index, share, and measure software distribution.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Distribution</h4>
+    <p>Software delivery and discoverability. Deploy, index, share, and measure software distribution.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityMachinesWebsite/issues/2" target="_blank" rel="noopener noreferrer">View Engineering Source ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity devtools browser engineering from first principles. learn debugging, browser internals, network inspection, and performance profiling.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity DevTools</h4>
+    <p>Browser engineering from first principles. Learn debugging, browser internals, network inspection, and performance profiling.</p>
+    <span class="sm-agent-status">In Development</span>
+  </li>
+
+  <li class="sm-agent-item" data-search="singularity machines website our public development showcase. built with minimal infrastructure complexity.">
+    <span class="sm-agent-type">PROJECT</span>
+    <h4>Singularity Machines Website</h4>
+    <p>Our public development showcase. Built with minimal infrastructure complexity.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityMachinesWebsite" target="_blank" rel="noopener noreferrer">View Engineering Source ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering production baseline">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #1</span>
+    <h4>Production Baseline</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/1" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity code construction">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #2</span>
+    <h4>Singularity Code Construction</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/2" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity issue architect">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #3</span>
+    <h4>Singularity Issue Architect</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/3" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity audit">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #4</span>
+    <h4>Singularity Audit</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/4" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity distribution">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #5</span>
+    <h4>Singularity Distribution</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/5" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity domain registration">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #6</span>
+    <h4>Singularity Domain Registration</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/6" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity intelligence integration">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #7</span>
+    <h4>Singularity Intelligence Integration</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/7" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity learning architect">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #8</span>
+    <h4>Singularity Learning Architect</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/8" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity interview simulator">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #9</span>
+    <h4>Singularity Interview Simulator</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/9" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity verification">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #10</span>
+    <h4>Singularity Verification</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/10" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity interface construction">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #11</span>
+    <h4>Singularity Interface Construction</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/11" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity ip registry">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #12</span>
+    <h4>Singularity IP Registry</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/12" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity tutor">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #13</span>
+    <h4>Singularity Tutor</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/13" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="dsa agent engineering singularity set registry">
+    <span class="sm-agent-type">DSA ENGINEERING ISSUE #14</span>
+    <h4>Singularity SET Registry</h4>
+    <p>Publicly tracked engineering work in Singularity DSA.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityDSA/issues/14" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="website engineering singularity audit">
+    <span class="sm-agent-type">WEBSITE ENGINEERING ISSUE #1</span>
+    <h4>Singularity Audit</h4>
+    <p>Publicly tracked engineering work for Singularity Machines.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityMachinesWebsite/issues/1" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+
+  <li class="sm-agent-item" data-search="website engineering singularity distribution">
+    <span class="sm-agent-type">WEBSITE ENGINEERING ISSUE #2</span>
+    <h4>Singularity Distribution</h4>
+    <p>Publicly tracked engineering work for Singularity Machines.</p>
+    <a href="https://github.com/ThirDecade2020/SingularityMachinesWebsite/issues/2" target="_blank" rel="noopener noreferrer">View Engineering Issue ↗</a>
+  </li>
+</ul>
 
   <div class="sm-explorer-heading sm-explorer-directory-heading">
     <h3>Repository Directory</h3>
@@ -4625,6 +4937,33 @@ body.sm-arcade-open {
 })();
 </script>
 <!-- END CODE BLISS V4 AUDIO PLAYER -->
+
+
+<script>
+/* SINGULARITY PROJECT DIRECTORY SEARCH */
+(() => {
+  const input = document.getElementById('sm-agent-search');
+  const items = [...document.querySelectorAll('.sm-agent-item')];
+  const count = document.getElementById('sm-agent-count');
+  const empty = document.getElementById('sm-agent-empty');
+  if (!input || !count || !empty) return;
+
+  const update = () => {
+    const query = input.value.trim().toLowerCase();
+    let visible = 0;
+    items.forEach(item => {
+      const match = item.dataset.search.includes(query);
+      item.hidden = !match;
+      if (match) visible++;
+    });
+    count.textContent = `${visible} of ${items.length} entries`;
+    empty.hidden = visible !== 0;
+  };
+
+  input.addEventListener('input', update);
+  update();
+})();
+</script>
 
 </body>
 </html>
