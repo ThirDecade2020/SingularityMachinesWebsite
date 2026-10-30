@@ -352,6 +352,14 @@
       position: relative;
       z-index: 1;
     }
+    header {
+      position: sticky;
+      top: 16px;
+      z-index: 100;
+    }
+    @media (max-width: 600px) {
+      header { top: 0; }
+    }
 
     /* Singularity Machines animated energy borders */
     #services li,
